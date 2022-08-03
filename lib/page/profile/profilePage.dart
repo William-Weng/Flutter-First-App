@@ -11,10 +11,17 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.amber.shade100,
-      body: const Center(
-        child: Text('Profile'),
-      ),
-    );
+        backgroundColor: Colors.amber.shade100,
+        body: ListView.builder(
+          itemExtent: 64,
+          itemCount: 100,
+          itemBuilder: ((context, index) {
+            return Card(
+              child: ListTile(
+                title: Text('$index'),
+              ),
+            );
+          }),
+        ));
   }
 }

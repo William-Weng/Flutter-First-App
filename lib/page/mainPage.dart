@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../page/home/homePage.dart';
-import '../page/profile/profilePage.dart';
+import '/utility/setting.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -13,22 +11,22 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   int _selectedIndex = 0;
 
-  final List<Widget> _tabs = [
-    const HomePage(title: '<首頁>'),
-    const ProfilePage(title: '<次頁>'),
-  ];
+  final List<BottomNavigationBarItem> _items = tabBarItems.map((model) {
+    return model.item;
+  }).toList();
 
-  final items = [
-    const BottomNavigationBarItem(icon: Icon(Icons.home), label: '第一頁'),
-    const BottomNavigationBarItem(icon: Icon(Icons.phone), label: '第二頁'),
-  ];
+  final List<Widget> _bodies = tabBarItems.map((model) {
+    return model.body;
+  }).toList();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _tabs.elementAt(_selectedIndex),
+      body: _bodies.elementAt(_selectedIndex),
       bottomNavigationBar: BottomNavigationBar(
-        items: items,
+        items: _items,
+        selectedItemColor: Colors.blueAccent,
+        currentIndex: _selectedIndex,
         onTap: ((index) {
           setState(() {
             _selectedIndex = index;
