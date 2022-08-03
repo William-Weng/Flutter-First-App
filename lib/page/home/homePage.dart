@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key, required this.title});
+  const HomePage({Key? key, required this.title}) : super(key: key);
   final String title;
 
   @override
@@ -65,6 +65,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
     log(_message);
 
     return Scaffold(
+      backgroundColor: Colors.greenAccent,
       body: Padding(
         padding: const EdgeInsets.only(top: 32.0),
         child: Text(
