@@ -23,9 +23,12 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: _bodies.elementAt(_selectedIndex),
+      extendBody: true,
       bottomNavigationBar: BottomNavigationBar(
         items: _items,
         selectedItemColor: Colors.blueAccent,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
         currentIndex: _selectedIndex,
         onTap: ((index) {
           setState(() {

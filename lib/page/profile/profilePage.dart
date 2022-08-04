@@ -17,8 +17,10 @@ class _ProfilePageState extends State<ProfilePage> {
             style: TextStyle(color: Colors.black),
           ),
           centerTitle: true,
-          backgroundColor: Colors.greenAccent,
+          backgroundColor: Colors.transparent,
+          elevation: 0,
         ),
+        extendBodyBehindAppBar: true,
         backgroundColor: Colors.amber.shade100,
         body: ListView.builder(
           itemExtent: 64,
