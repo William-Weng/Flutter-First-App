@@ -11,6 +11,14 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: AppBar(
+          title: const Text(
+            'ListView',
+            style: TextStyle(color: Colors.black),
+          ),
+          centerTitle: true,
+          backgroundColor: Colors.greenAccent,
+        ),
         backgroundColor: Colors.amber.shade100,
         body: ListView.builder(
           itemExtent: 64,
