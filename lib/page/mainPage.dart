@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '/utility/setting.dart';
 
 class MainPage extends StatefulWidget {
@@ -9,15 +10,23 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+  late final List<BottomNavigationBarItem> _items;
+  late final List<Widget> _bodies;
+
   int _selectedIndex = 0;
 
-  final List<BottomNavigationBarItem> _items = tabBarItems.map((model) {
-    return model.item;
-  }).toList();
+  @override
+  void initState() {
+    super.initState();
 
-  final List<Widget> _bodies = tabBarItems.map((model) {
-    return model.body;
-  }).toList();
+    _items = tabBarItems.map((model) {
+      return model.item;
+    }).toList();
+
+    _bodies = tabBarItems.map((model) {
+      return model.body;
+    }).toList();
+  }
 
   @override
   Widget build(BuildContext context) {
