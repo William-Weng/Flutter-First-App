@@ -22,7 +22,7 @@ class Utility {
     return response;
   }
 
-  Future<Map<String, dynamic>> readJSON({required String assetsPath}) async {
+  Future<dynamic> readJSON({required String assetsPath}) async {
     final response = await readFile(assetsPath: assetsPath);
     return const JsonDecoder().convert(response);
   }
