@@ -1,4 +1,9 @@
+import 'dart:developer';
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_first_app/utility/widget/progressIndicator.dart';
+
 import '/utility/model.dart';
 import '/utility/utility.dart';
 
@@ -12,14 +17,45 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   final String _title = "萬能的滾動列表";
   final String _assetsPath = "./lib/assets/sample.json";
-  final List<Sample> _sampleList = [];
-
   final ScrollController _scrollController = ScrollController();
+
+  bool isDownloading = false;
+  List<Sample> _sampleList = [];
 
   @override
   void initState() {
     super.initState();
-    downloadJSON(_assetsPath);
+
+    downloadJSON(
+      _assetsPath,
+      action: (list) {
+        setState(() {
+          _sampleList.addAll(list);
+        });
+      },
+    );
+
+    _scrollController.addListener(() {
+      final offset = _scrollController.offset;
+
+      if (isDownloading) {
+        return;
+      }
+
+      if (offset <= 0) {
+        simulationReloadJSON();
+      }
+
+      if (offset >= _scrollController.position.maxScrollExtent) {
+        simulationDownloadJSON();
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _scrollController.dispose();
   }
 
   @override
@@ -52,17 +88,6 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-  void downloadJSON(String assetsPath) {
-    Utility.shared.readJSON(assetsPath: assetsPath).then((value) {
-      final list = value['result'] as List<dynamic>;
-      final sampleList = Sample.fromList(list);
-
-      setState(() {
-        _sampleList.addAll(sampleList);
-      });
-    });
-  }
-
   ListView listViewBuilder(int itemCount) {
     Widget _itemMaker(int index) {
       final sample = _sampleList.elementAt(index);
@@ -87,7 +112,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     padding: const EdgeInsets.all(8.0),
                     child: Center(
                         child: Text(
-                      sample.title,
+                      '(${index + 1}) ${sample.title}',
                       style: const TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.w900,
@@ -116,6 +141,14 @@ class _ProfilePageState extends State<ProfilePage> {
       return widget;
     }
 
+    Divider _dividerMaker(int index) {
+      return const Divider(
+        height: 1,
+        thickness: 2,
+        color: Colors.blueGrey,
+      );
+    }
+
     ListView _listViewMaker(int itemCount) {
       ListView listView = ListView.separated(
         itemCount: itemCount,
@@ -124,11 +157,7 @@ class _ProfilePageState extends State<ProfilePage> {
         }),
         controller: _scrollController,
         separatorBuilder: ((context, index) {
-          return const Divider(
-            height: 1,
-            thickness: 2,
-            color: Colors.blueGrey,
-          );
+          return _dividerMaker(index);
         }),
       );
 
@@ -139,7 +168,58 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   void scrollToTop() {
-    _scrollController.animateTo(0,
-        duration: const Duration(milliseconds: 500), curve: Curves.ease);
+    _scrollController.animateTo(
+      0.1,
+      duration: const Duration(milliseconds: 500),
+      curve: Curves.fastOutSlowIn,
+    );
+  }
+
+  void simulationReloadJSON() {
+    WWProgressIndicator.shared.display(context);
+
+    isDownloading = true;
+
+    downloadJSON(
+      _assetsPath,
+      action: (list) {
+        Future.delayed(const Duration(seconds: 3)).then((value) => {
+              WWProgressIndicator.shared.dismiss(context),
+              isDownloading = false,
+              setState(() {
+                _sampleList = list;
+              }),
+            });
+      },
+    );
+  }
+
+  void simulationDownloadJSON() {
+    WWProgressIndicator.shared.display(context);
+
+    isDownloading = true;
+
+    downloadJSON(
+      _assetsPath,
+      action: (list) {
+        Future.delayed(const Duration(seconds: 3)).then((value) => {
+              WWProgressIndicator.shared.dismiss(context),
+              isDownloading = false,
+              setState(() {
+                _sampleList.addAll(list);
+              }),
+            });
+      },
+    );
+  }
+
+  void downloadJSON(String assetsPath,
+      {required Function(List<Sample>) action}) {
+    Utility.shared.readJSON(assetsPath: assetsPath).then((value) {
+      final list = value['result'] as List<dynamic>;
+      final sampleList = Sample.fromList(list);
+
+      action(sampleList);
+    });
   }
 }
