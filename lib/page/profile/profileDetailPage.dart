@@ -27,12 +27,9 @@ class _ProfileDetailPageState extends State<ProfileDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: PreferredSize(
-          preferredSize: AppBar().preferredSize,
-          child: WWAppBar(
-            title: _sample.title,
-            backgroundColor: Colors.greenAccent,
-          ),
+        appBar: AppBar(
+          title: Text(widget.sample.title),
+          centerTitle: true,
         ),
         body: Column(
           children: [

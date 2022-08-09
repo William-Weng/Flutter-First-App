@@ -24,6 +24,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
   bool isDownloading = false;
   List<Sample> _sampleList = [];
+  List<Sample> _fullSampleList = [];
 
   @override
   void initState() {
@@ -75,10 +76,32 @@ class _ProfilePageState extends State<ProfilePage> {
     final bodyWidget = Scaffold(
       appBar: PreferredSize(
         preferredSize: AppBar().preferredSize,
-        child: WWAppBar(
+        child: WWSearchBar(
           title: widget.title,
           color: Colors.black,
-          backgroundColor: Colors.transparent,
+          backgroundColor: Colors.white,
+          searchAction: (value) {
+            List<Sample> list = [];
+
+            for (var sample in _sampleList) {
+              if (sample.title.contains(value.toLowerCase())) {
+                list.add(sample);
+              }
+            }
+
+            setState(() {
+              _sampleList = list.toList();
+            });
+          },
+          toggleAction: (isSearchBar) {
+            if (!isSearchBar) {
+              setState(() {
+                _sampleList = _fullSampleList.toList();
+              });
+            } else {
+              _fullSampleList = _sampleList.toList();
+            }
+          },
         ),
       ),
       extendBodyBehindAppBar: true,

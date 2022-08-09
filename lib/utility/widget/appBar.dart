@@ -1,22 +1,28 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
-class WWAppBar extends StatefulWidget {
+class WWSearchBar extends StatefulWidget {
   final String title;
   final Color? color;
   final Color? backgroundColor;
+  final Function(String) searchAction;
+  final Function(bool) toggleAction;
 
-  const WWAppBar({
+  const WWSearchBar({
     Key? key,
     required this.title,
+    required this.searchAction,
+    required this.toggleAction,
     this.color,
     this.backgroundColor,
   }) : super(key: key);
 
   @override
-  State<WWAppBar> createState() => _WWAppBarState();
+  State<WWSearchBar> createState() => _WWSearchBarState();
 }
 
-class _WWAppBarState extends State<WWAppBar> {
+class _WWSearchBarState extends State<WWSearchBar> {
   bool isSearchBar = false;
 
   late Widget appBarTitleBar;
@@ -57,13 +63,14 @@ class _WWAppBarState extends State<WWAppBar> {
     if (!isSearchBar) {
       isSearchBar = true;
       searchIcon = const Icon(Icons.cancel);
-      appBarTitleBar = searchBar();
-      return;
+      appBarTitleBar = searchBar((value) => {widget.searchAction(value)});
+    } else {
+      isSearchBar = false;
+      searchIcon = const Icon(Icons.search);
+      appBarTitleBar = titleBar();
     }
 
-    isSearchBar = false;
-    searchIcon = const Icon(Icons.search);
-    appBarTitleBar = titleBar();
+    widget.toggleAction(isSearchBar);
   }
 
   Widget titleBar() {
@@ -78,16 +85,19 @@ class _WWAppBarState extends State<WWAppBar> {
   }
 
   // https://blog.logrocket.com/how-to-create-search-bar-flutter/
-  Widget searchBar() {
-    Widget searchBar = const TextField(
-      style: TextStyle(color: Colors.black),
-      decoration: InputDecoration(
+  Widget searchBar(Function(String) submitAction) {
+    Widget searchBar = TextField(
+      style: const TextStyle(color: Colors.black),
+      autofocus: true,
+      textInputAction: TextInputAction.search,
+      decoration: const InputDecoration(
         prefixIcon: Icon(Icons.search, color: Colors.grey),
         fillColor: Colors.black,
         border: InputBorder.none,
         hintText: 'Search by name',
         hintStyle: TextStyle(color: Colors.grey),
       ),
+      onSubmitted: submitAction,
     );
 
     return searchBar;
