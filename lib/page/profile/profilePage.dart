@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_first_app/utility/widget/appBar.dart';
+import 'package:flutter_first_app/utility/widget/searchBar.dart';
 
 import '/page/profile/profileDetailPage.dart';
 import '/utility/model.dart';
@@ -22,6 +22,7 @@ class _ProfilePageState extends State<ProfilePage> {
   final int simulationSeconds = 2;
   final ScrollController _scrollController = ScrollController();
 
+  bool isSearchBar = false;
   bool isDownloading = false;
   List<Sample> _sampleList = [];
   List<Sample> _fullSampleList = [];
@@ -46,10 +47,23 @@ class _ProfilePageState extends State<ProfilePage> {
         return;
       }
 
-      if (offset <= 0) {
-        simulationReloadJSON();
+      if (isSearchBar) {
+        return;
       }
 
+      log('velocity => ${_scrollController.position.activity?.velocity}');
+
+      if (_scrollController.position.activity == null) {
+        return;
+      }
+
+      double velocity = _scrollController.position.activity!.velocity;
+
+      if (velocity < -200) {
+        if (offset <= 0) {
+          simulationReloadJSON();
+        }
+      }
       if (offset >= _scrollController.position.maxScrollExtent) {
         if (_sampleList.length >= widget.maxDownloadCount) {
           return;
@@ -94,6 +108,8 @@ class _ProfilePageState extends State<ProfilePage> {
             });
           },
           toggleAction: (isSearchBar) {
+            this.isSearchBar = isSearchBar;
+
             if (!isSearchBar) {
               setState(() {
                 _sampleList = _fullSampleList.toList();
