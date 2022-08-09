@@ -1,22 +1,25 @@
 import 'dart:developer';
-import 'dart:ffi';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_first_app/utility/widget/progressIndicator.dart';
+import 'package:flutter_first_app/utility/widget/appBar.dart';
 
+import '/page/profile/profileDetailPage.dart';
 import '/utility/model.dart';
 import '/utility/utility.dart';
+import '/utility/widget/progressIndicator.dart';
 
 class ProfilePage extends StatefulWidget {
-  const ProfilePage({Key? key, required this.title}) : super(key: key);
   final String title;
+  final String assetsPath = "./lib/assets/sample.json";
+  final int maxDownloadCount = 20;
+
+  const ProfilePage({Key? key, required this.title}) : super(key: key);
   @override
   State<ProfilePage> createState() => _ProfilePageState();
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  final String _title = "萬能的滾動列表";
-  final String _assetsPath = "./lib/assets/sample.json";
+  final int simulationSeconds = 2;
   final ScrollController _scrollController = ScrollController();
 
   bool isDownloading = false;
@@ -27,7 +30,7 @@ class _ProfilePageState extends State<ProfilePage> {
     super.initState();
 
     downloadJSON(
-      _assetsPath,
+      widget.assetsPath,
       action: (list) {
         setState(() {
           _sampleList.addAll(list);
@@ -47,6 +50,9 @@ class _ProfilePageState extends State<ProfilePage> {
       }
 
       if (offset >= _scrollController.position.maxScrollExtent) {
+        if (_sampleList.length >= widget.maxDownloadCount) {
+          return;
+        }
         simulationDownloadJSON();
       }
     });
@@ -60,19 +66,20 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
+    return bodyMaker(context);
+  }
+
+  Widget bodyMaker(BuildContext context) {
     final bottomPadding = MediaQuery.of(context).padding.bottom;
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          _title,
-          style: const TextStyle(
-            color: Colors.black,
-          ),
+    final bodyWidget = Scaffold(
+      appBar: PreferredSize(
+        preferredSize: AppBar().preferredSize,
+        child: WWAppBar(
+          title: widget.title,
+          color: Colors.black,
+          backgroundColor: Colors.transparent,
         ),
-        centerTitle: true,
-        backgroundColor: Colors.transparent,
-        elevation: 0,
       ),
       extendBodyBehindAppBar: true,
       backgroundColor: Colors.amber.shade100,
@@ -86,6 +93,8 @@ class _ProfilePageState extends State<ProfilePage> {
         ),
       ),
     );
+
+    return bodyWidget;
   }
 
   ListView listViewBuilder(int itemCount) {
@@ -153,7 +162,14 @@ class _ProfilePageState extends State<ProfilePage> {
       ListView listView = ListView.separated(
         itemCount: itemCount,
         itemBuilder: ((context, index) {
-          return _itemMaker(index);
+          final onTapItem = GestureDetector(
+            child: _itemMaker(index),
+            onTap: () {
+              itemOnTap(index);
+            },
+          );
+
+          return onTapItem;
         }),
         controller: _scrollController,
         separatorBuilder: ((context, index) {
@@ -167,6 +183,14 @@ class _ProfilePageState extends State<ProfilePage> {
     return _listViewMaker(itemCount);
   }
 
+  void itemOnTap(int index) {
+    final sample = _sampleList.elementAt(index);
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => ProfileDetailPage(sample: sample)));
+  }
+
   void scrollToTop() {
     _scrollController.animateTo(
       0.1,
@@ -177,13 +201,12 @@ class _ProfilePageState extends State<ProfilePage> {
 
   void simulationReloadJSON() {
     WWProgressIndicator.shared.display(context);
-
     isDownloading = true;
 
     downloadJSON(
-      _assetsPath,
+      widget.assetsPath,
       action: (list) {
-        Future.delayed(const Duration(seconds: 3)).then((value) => {
+        Future.delayed(Duration(seconds: simulationSeconds)).then((value) => {
               WWProgressIndicator.shared.dismiss(context),
               isDownloading = false,
               setState(() {
@@ -200,9 +223,9 @@ class _ProfilePageState extends State<ProfilePage> {
     isDownloading = true;
 
     downloadJSON(
-      _assetsPath,
+      widget.assetsPath,
       action: (list) {
-        Future.delayed(const Duration(seconds: 3)).then((value) => {
+        Future.delayed(Duration(seconds: simulationSeconds)).then((value) => {
               WWProgressIndicator.shared.dismiss(context),
               isDownloading = false,
               setState(() {
