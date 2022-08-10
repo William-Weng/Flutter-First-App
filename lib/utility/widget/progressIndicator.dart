@@ -3,14 +3,20 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 
 class WWProgressIndicator extends StatefulWidget {
-  const WWProgressIndicator({Key? key}) : super(key: key);
+  late double radius = 32.0;
 
-  static const shared = WWProgressIndicator();
+  WWProgressIndicator({Key? key, this.radius = 32.0}) : super(key: key);
+
+  static WWProgressIndicator shared = WWProgressIndicator();
 
   @override
   State<WWProgressIndicator> createState() => _WWProgressIndicatorState();
 
-  display(BuildContext context) {
+  display(BuildContext context, {double? radius}) {
+    if (radius != null) {
+      this.radius = radius;
+    }
+
     Navigator.of(context).push(
       PageRouteBuilder(
         opaque: false,
@@ -42,11 +48,11 @@ class _WWProgressIndicatorState extends State<WWProgressIndicator> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black.withAlpha(64),
-      body: const Center(
+      body: Center(
         child: SizedBox(
-          width: 128,
-          height: 128,
-          child: CircularProgressIndicator(
+          width: widget.radius,
+          height: widget.radius,
+          child: const CircularProgressIndicator(
             valueColor: AlwaysStoppedAnimation(Colors.blue),
           ),
         ),

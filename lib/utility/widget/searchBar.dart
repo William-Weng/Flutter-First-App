@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 class WWSearchBar extends StatefulWidget {
@@ -29,12 +31,16 @@ class _WWSearchBarState extends State<WWSearchBar> {
   @override
   void initState() {
     super.initState();
-    appBarTitleBar = titleBar();
     searchIcon = const Icon(Icons.search);
+    appBarTitleBar = titleBar();
   }
 
   @override
   Widget build(BuildContext context) {
+    if (!isSearchBar) {
+      appBarTitleBar = titleBar();
+    }
+
     final appBar = AppBar(
       title: appBarTitleBar,
       titleSpacing: 0,
@@ -57,6 +63,22 @@ class _WWSearchBarState extends State<WWSearchBar> {
     return appBar;
   }
 
+  Widget toggleTitleBarMaker() {
+    if (!isSearchBar) {
+      isSearchBar = true;
+      searchIcon = const Icon(Icons.cancel);
+      appBarTitleBar = searchBar((value) => {widget.searchAction(value)});
+    } else {
+      isSearchBar = false;
+      searchIcon = const Icon(Icons.search);
+      appBarTitleBar = titleBar();
+    }
+
+    widget.toggleAction(isSearchBar);
+
+    return appBarTitleBar;
+  }
+
   void toggleTitleBar() {
     if (!isSearchBar) {
       isSearchBar = true;
@@ -76,6 +98,7 @@ class _WWSearchBarState extends State<WWSearchBar> {
       widget.title,
       style: TextStyle(
         color: widget.color,
+        fontSize: 24.0,
       ),
     );
 

@@ -13,8 +13,6 @@ class Utility {
 
   bool isShow = false;
 
-  late WWProgressIndicator? _indicator;
-
   Image assetImage(String name) {
     return Image.asset(name);
   }
