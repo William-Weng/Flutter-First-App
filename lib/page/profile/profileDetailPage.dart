@@ -32,13 +32,13 @@ class _ProfileDetailPageState extends State<ProfileDetailPage> {
           centerTitle: true,
         ),
         body: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             InkWell(
               child: Utility.shared.webImage(
                 _sample.imageUrl,
               ),
               onDoubleTap: () {
-                log('message');
                 gotoUrl(_sample.imageUrl);
               },
             ),

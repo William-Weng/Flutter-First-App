@@ -1,11 +1,14 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_first_app/utility/widget/searchBar.dart';
+import 'package:http/http.dart';
 
 import '/page/profile/profileDetailPage.dart';
 import '/utility/model.dart';
 import '/utility/utility.dart';
+import '/utility/extension.dart';
 import '/utility/widget/progressIndicator.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -20,7 +23,9 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  final double itemHeight = 200.0;
   final int simulationSeconds = 2;
+  final int offsetRange = 100;
   final ScrollController _scrollController = ScrollController();
 
   bool isSearchBar = false;
@@ -50,16 +55,15 @@ class _ProfilePageState extends State<ProfilePage> {
 
   // MARK: - 小工具
   void initSetting() {
-    downloadJSON(
-      widget.assetsPath,
-      action: (list) {
-        setState(() {
-          _sampleList.addAll(list);
-        });
-      },
-    );
+    // downloadJSON(widget.assetsPath, action: (list) { setState(() { _sampleList.addAll(list); });},);
 
     _scrollController.addListener(scrollingListener);
+
+    downloadHttpJSON().then((list) => {
+          setState(() {
+            _sampleList.addAll(list);
+          }),
+        });
   }
 
   void itemOnTap(int index) {
@@ -79,7 +83,6 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   void scrollingListener() {
-    const offsetRange = 100;
     final offset = _scrollController.offset;
 
     changeTitle(offset);
@@ -111,18 +114,15 @@ class _ProfilePageState extends State<ProfilePage> {
     WWProgressIndicator.shared.display(context);
     isDownloading = true;
 
-    downloadJSON(
-      widget.assetsPath,
-      action: (list) {
-        Future.delayed(Duration(seconds: simulationSeconds)).then((value) => {
-              WWProgressIndicator.shared.dismiss(context),
-              isDownloading = false,
-              setState(() {
-                _sampleList = list;
-              }),
-            });
-      },
-    );
+    // downloadJSON(widget.assetsPath, action: (list) { Future.delayed(Duration(seconds: simulationSeconds)).then((value) => { WWProgressIndicator.shared.dismiss(context), isDownloading = false, setState(() { _sampleList = list; }),});},);
+
+    downloadHttpJSON().then((list) => {
+          WWProgressIndicator.shared.dismiss(context),
+          isDownloading = false,
+          setState(() {
+            _sampleList = list;
+          }),
+        });
   }
 
   void simulationDownloadJSON() {
@@ -130,18 +130,14 @@ class _ProfilePageState extends State<ProfilePage> {
 
     isDownloading = true;
 
-    downloadJSON(
-      widget.assetsPath,
-      action: (list) {
-        Future.delayed(Duration(seconds: simulationSeconds)).then((value) => {
-              WWProgressIndicator.shared.dismiss(context),
-              isDownloading = false,
-              setState(() {
-                _sampleList.addAll(list);
-              }),
-            });
-      },
-    );
+    // downloadJSON(widget.assetsPath, action: (list) { Future.delayed(Duration(seconds: simulationSeconds)).then((value) => { WWProgressIndicator.shared.dismiss(context), isDownloading = false, setState(() { _sampleList.addAll(list); }),});},);
+    downloadHttpJSON().then((list) => {
+          WWProgressIndicator.shared.dismiss(context),
+          isDownloading = false,
+          setState(() {
+            _sampleList.addAll(list);
+          }),
+        });
   }
 
   void downloadJSON(String assetsPath,
@@ -154,14 +150,25 @@ class _ProfilePageState extends State<ProfilePage> {
     });
   }
 
+  Future<List<Sample>> downloadHttpJSON() async {
+    final url = Uri.https("jsonplaceholder.typicode.com", '/users');
+    final response = await get(url);
+    final json = const JsonDecoder().convert(response.body.toString());
+
+    return UserSample.fromListToSample(json);
+  }
+
   void changeTitle(double offset) {
     final fixOffset = offset - 45;
-    final index = fixOffset ~/ 200.0;
+    final index = fixOffset ~/ itemHeight;
+    final sample = _sampleList.safeElementAt(index) as Sample?;
 
-    String indexTitle = _sampleList.elementAt(index).title;
+    String indexTitle = widget.title;
 
-    if (fixOffset < 0) {
-      indexTitle = widget.title;
+    if (sample != null) {
+      if (fixOffset > 0) {
+        indexTitle = sample.title;
+      }
     }
 
     if (_title == indexTitle) {
@@ -188,7 +195,7 @@ class _ProfilePageState extends State<ProfilePage> {
             List<Sample> list = [];
 
             for (var sample in _sampleList) {
-              if (sample.title.contains(value.toLowerCase())) {
+              if (sample.title.toLowerCase().contains(value.toLowerCase())) {
                 list.add(sample);
               }
             }
@@ -231,7 +238,7 @@ class _ProfilePageState extends State<ProfilePage> {
       final sample = _sampleList.elementAt(index);
 
       final widget = SizedBox(
-        height: 200.0,
+        height: itemHeight,
         child: Stack(
           fit: StackFit.expand,
           children: [

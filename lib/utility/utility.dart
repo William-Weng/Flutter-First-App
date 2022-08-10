@@ -1,10 +1,8 @@
 import 'dart:async' show Future;
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
-import 'package:flutter_first_app/utility/widget/progressIndicator.dart';
 
 class Utility {
   Utility._();
