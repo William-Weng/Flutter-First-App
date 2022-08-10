@@ -307,7 +307,51 @@ class _ProfilePageState extends State<ProfilePage> {
             },
           );
 
-          return onTapItem;
+          final cancelButton = Container(
+            color: Colors.green,
+            alignment: Alignment.centerLeft,
+            child: const Padding(
+              padding: EdgeInsets.only(left: 16.0),
+              child: Icon(
+                Icons.cancel,
+                color: Colors.white,
+              ),
+            ),
+          );
+
+          final deleteButton = Container(
+            color: Colors.red,
+            alignment: Alignment.centerRight,
+            child: const Padding(
+              padding: EdgeInsets.only(right: 16.0),
+              child: Icon(
+                Icons.delete,
+                color: Colors.white,
+              ),
+            ),
+          );
+
+          return Dismissible(
+            key: UniqueKey(),
+            background: cancelButton,
+            secondaryBackground: deleteButton,
+            // direction: DismissDirection.endToStart,
+            child: onTapItem,
+            onDismissed: (direction) {
+              setState(() {
+                _sampleList.removeAt(index);
+              });
+            },
+            // https://www.youtube.com/watch?v=rFlYNqjwPeA
+            confirmDismiss: (direction) {
+              switch (direction) {
+                case DismissDirection.endToStart:
+                  return Future.value(true);
+                default:
+                  return Future.value(false);
+              }
+            },
+          );
         }),
         controller: _scrollController,
         separatorBuilder: ((context, index) {
