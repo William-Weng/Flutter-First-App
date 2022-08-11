@@ -1,13 +1,13 @@
-extension WWList on List {
-  Object? safeElementAt(int index) {
-    if (index < 0) {
+extension WWList<T> on List<T> {
+  T? safeElementAt(int safeIndex) {
+    if (safeIndex < 0) {
       return null;
     }
 
-    if ((index + 1) > length) {
+    if ((safeIndex + 1) > length) {
       return null;
     }
 
-    return elementAt(index);
+    return elementAt(safeIndex);
   }
 }

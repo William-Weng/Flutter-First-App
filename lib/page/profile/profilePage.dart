@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_first_app/utility/global.dart';
 import 'package:flutter_first_app/utility/widget/searchBar.dart';
 import 'package:http/http.dart';
 
@@ -23,9 +24,9 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  final double itemHeight = 200.0;
   final int simulationSeconds = 2;
   final int offsetRange = 100;
+  final double itemHeight = 200.0;
   final ScrollController _scrollController = ScrollController();
 
   bool isSearchBar = false;
@@ -46,6 +47,7 @@ class _ProfilePageState extends State<ProfilePage> {
   void dispose() {
     super.dispose();
     _scrollController.dispose();
+    Global.sampleList = _sampleList.toList();
   }
 
   @override
@@ -58,6 +60,11 @@ class _ProfilePageState extends State<ProfilePage> {
     // downloadJSON(widget.assetsPath, action: (list) { setState(() { _sampleList.addAll(list); });},);
 
     _scrollController.addListener(scrollingListener);
+
+    if (Global.sampleList.isNotEmpty) {
+      _sampleList = Global.sampleList.toList();
+      return;
+    }
 
     downloadHttpJSON().then((list) => {
           setState(() {
@@ -161,7 +168,7 @@ class _ProfilePageState extends State<ProfilePage> {
   void changeTitle(double offset) {
     final fixOffset = offset - 45;
     final index = fixOffset ~/ itemHeight;
-    final sample = _sampleList.safeElementAt(index) as Sample?;
+    final sample = _sampleList.safeElementAt(index);
 
     String indexTitle = widget.title;
 
@@ -295,10 +302,13 @@ class _ProfilePageState extends State<ProfilePage> {
     }
 
     // [Flutter完整开发实战详解(十八、 神奇的ScrollPhysics与Simulation)](https://zhuanlan.zhihu.com/p/84716922)
+    // [Flutter：ListView-ScrollPhysics 詳細介紹（翻譯） - 掘金](https://juejin.cn/post/6844903705192431623)
+    // [ScrollPhysics | Flutter | 老孟](http://laomengit.com/flutter/widgets/ScrollPhysics.html#neverscrollablescrollphysics)
     ListView _listViewMaker(int itemCount) {
       ListView listView = ListView.separated(
         physics: const BouncingScrollPhysics(),
         itemCount: itemCount,
+        key: Utility.shared.pageStorageKey(widget),
         itemBuilder: ((context, index) {
           final onTapItem = GestureDetector(
             child: _itemMaker(index),
@@ -344,12 +354,18 @@ class _ProfilePageState extends State<ProfilePage> {
             },
             // https://www.youtube.com/watch?v=rFlYNqjwPeA
             confirmDismiss: (direction) {
+              bool canAction = false;
+
               switch (direction) {
                 case DismissDirection.endToStart:
-                  return Future.value(true);
+                  canAction = true;
+                  break;
                 default:
-                  return Future.value(false);
+                  canAction = false;
+                  break;
               }
+
+              return Future.value(canAction);
             },
           );
         }),
