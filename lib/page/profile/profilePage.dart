@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_first_app/utility/global.dart';
 import 'package:flutter_first_app/utility/widget/searchBar.dart';
 import 'package:http/http.dart';
@@ -66,11 +67,10 @@ class _ProfilePageState extends State<ProfilePage> {
       return;
     }
 
-    downloadHttpJSON().then((list) => {
-          setState(() {
-            _sampleList.addAll(list);
-          }),
-        });
+    // https://stackoverflow.com/questions/47592301/setstate-or-markneedsbuild-called-during-build
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      simulationReloadJSON();
+    });
   }
 
   void itemOnTap(int index) {
