@@ -11,12 +11,18 @@ class Utility {
 
   bool isShow = false;
 
-  Image assetImage(String name) {
-    return Image.asset(name);
+  Image assetImage(String name, {BoxFit? fit}) {
+    return Image.asset(
+      name,
+      fit: fit,
+    );
   }
 
-  Image webImage(String src) {
-    return Image.network(src);
+  Image webImage(String src, {BoxFit? fit}) {
+    return Image.network(
+      src,
+      fit: fit,
+    );
   }
 
   Future<String> readFile({required String assetsPath}) async {

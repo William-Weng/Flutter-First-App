@@ -31,13 +31,17 @@ class _ProfileDetailPageState extends State<ProfileDetailPage> {
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            InkWell(
-              child: Utility.shared.webImage(
-                _sample.imageUrl,
+            Container(
+              height: 200,
+              child: InkWell(
+                child: Utility.shared.webImage(
+                  _sample.imageUrl,
+                  fit: BoxFit.fitWidth,
+                ),
+                onDoubleTap: () {
+                  gotoUrl(_sample.imageUrl);
+                },
               ),
-              onDoubleTap: () {
-                gotoUrl(_sample.imageUrl);
-              },
             ),
             Expanded(
               child: SingleChildScrollView(

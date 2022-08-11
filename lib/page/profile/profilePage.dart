@@ -3,7 +3,9 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_first_app/utility/constant.dart';
 import 'package:flutter_first_app/utility/global.dart';
+import 'package:flutter_first_app/utility/transition.dart';
 import 'package:flutter_first_app/utility/widget/searchBar.dart';
 import 'package:http/http.dart';
 
@@ -58,8 +60,6 @@ class _ProfilePageState extends State<ProfilePage> {
 
   // MARK: - 小工具
   void initSetting() {
-    // downloadJSON(widget.assetsPath, action: (list) { setState(() { _sampleList.addAll(list); });},);
-
     _scrollController.addListener(scrollingListener);
 
     if (Global.sampleList.isNotEmpty) {
@@ -77,8 +77,13 @@ class _ProfilePageState extends State<ProfilePage> {
     final sample = _sampleList.elementAt(index);
     Navigator.push(
         context,
-        MaterialPageRoute(
-            builder: (context) => ProfileDetailPage(sample: sample)));
+        PageRouteTransition.shared.animation(
+          TransitionPosition.bottomToTop,
+          nextPage: ProfileDetailPage(sample: sample),
+          duration: const Duration(milliseconds: 2000),
+        )
+        // MaterialPageRoute(builder: (context) => ProfileDetailPage(sample: sample))
+        );
   }
 
   void scrollToTop() {
@@ -121,15 +126,26 @@ class _ProfilePageState extends State<ProfilePage> {
     WWProgressIndicator.shared.display(context);
     isDownloading = true;
 
-    // downloadJSON(widget.assetsPath, action: (list) { Future.delayed(Duration(seconds: simulationSeconds)).then((value) => { WWProgressIndicator.shared.dismiss(context), isDownloading = false, setState(() { _sampleList = list; }),});},);
+    downloadJSON(
+      widget.assetsPath,
+      action: (list) {
+        Future.delayed(Duration(seconds: simulationSeconds)).then((value) => {
+              WWProgressIndicator.shared.dismiss(context),
+              isDownloading = false,
+              setState(() {
+                _sampleList = list;
+              }),
+            });
+      },
+    );
 
-    downloadHttpJSON().then((list) => {
-          WWProgressIndicator.shared.dismiss(context),
-          isDownloading = false,
-          setState(() {
-            _sampleList = list;
-          }),
-        });
+    // downloadHttpJSON().then((list) => {
+    //       WWProgressIndicator.shared.dismiss(context),
+    //       isDownloading = false,
+    //       setState(() {
+    //         _sampleList = list;
+    //       }),
+    //     });
   }
 
   void simulationDownloadJSON() {
@@ -137,14 +153,26 @@ class _ProfilePageState extends State<ProfilePage> {
 
     isDownloading = true;
 
-    // downloadJSON(widget.assetsPath, action: (list) { Future.delayed(Duration(seconds: simulationSeconds)).then((value) => { WWProgressIndicator.shared.dismiss(context), isDownloading = false, setState(() { _sampleList.addAll(list); }),});},);
-    downloadHttpJSON().then((list) => {
-          WWProgressIndicator.shared.dismiss(context),
-          isDownloading = false,
-          setState(() {
-            _sampleList.addAll(list);
-          }),
-        });
+    downloadJSON(
+      widget.assetsPath,
+      action: (list) {
+        Future.delayed(Duration(seconds: simulationSeconds)).then((value) => {
+              WWProgressIndicator.shared.dismiss(context),
+              isDownloading = false,
+              setState(() {
+                _sampleList.addAll(list);
+              }),
+            });
+      },
+    );
+
+    // downloadHttpJSON().then((list) => {
+    //       WWProgressIndicator.shared.dismiss(context),
+    //       isDownloading = false,
+    //       setState(() {
+    //         _sampleList.addAll(list);
+    //       }),
+    //     });
   }
 
   void downloadJSON(String assetsPath,
@@ -345,7 +373,7 @@ class _ProfilePageState extends State<ProfilePage> {
             key: UniqueKey(),
             background: cancelButton,
             secondaryBackground: deleteButton,
-            // direction: DismissDirection.endToStart,
+            direction: DismissDirection.endToStart,
             child: onTapItem,
             onDismissed: (direction) {
               setState(() {
