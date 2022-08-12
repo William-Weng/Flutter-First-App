@@ -8,11 +8,13 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
+  // [Flutter 自訂字型 | Titangene Blog](https://titangene.github.io/article/flutter-custom-fonts.html)
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: MainPage(),
+      theme: ThemeData(fontFamily: 'OpenHuninn'),
+      home: const MainPage(),
     );
   }
 }

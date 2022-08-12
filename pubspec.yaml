@@ -23,4 +23,15 @@ flutter:
   uses-material-design: true
   assets:
     - ./lib/assets/sample.json
+  fonts:
+    # [FiraCode](https://github.com/tonsky/FiraCode)
+    - family: FiraCode
+      fonts:
+        - asset: ./lib/assets/fonts/FiraCode-VF.ttf
+
+    # [jf open 粉圓](https://github.com/justfont/open-huninn-font)
+    - family: OpenHuninn
+      fonts:
+        - asset: ./lib/assets/fonts/OpenHuninn-1.1.ttf
+
 

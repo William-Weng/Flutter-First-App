@@ -1,19 +1,18 @@
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
-import 'package:flutter_first_app/utility/constant.dart';
-import 'package:flutter_first_app/utility/global.dart';
-import 'package:flutter_first_app/utility/transition.dart';
-import 'package:flutter_first_app/utility/widget/searchBar.dart';
 import 'package:http/http.dart';
 
-import '/page/profile/profileDetailPage.dart';
+import '/utility/constant.dart';
+import '/utility/global.dart';
+import '/utility/transition.dart';
+import '/utility/widget/searchBar.dart';
 import '/utility/model.dart';
 import '/utility/utility.dart';
 import '/utility/extension.dart';
 import '/utility/widget/progressIndicator.dart';
+
+import '/page/profile/profileDetailPage.dart';
 
 class ProfilePage extends StatefulWidget {
   final String title;
@@ -302,7 +301,6 @@ class _ProfilePageState extends State<ProfilePage> {
                       '(${index + 1}) ${sample.title}',
                       style: const TextStyle(
                         fontSize: 24,
-                        fontWeight: FontWeight.w900,
                         color: Colors.black87,
                       ),
                     )),
@@ -380,7 +378,7 @@ class _ProfilePageState extends State<ProfilePage> {
             key: UniqueKey(),
             background: cancelButton,
             secondaryBackground: deleteButton,
-            direction: DismissDirection.endToStart,
+            // direction: DismissDirection.endToStart,
             child: onTapItem,
             onDismissed: (direction) {
               setState(() {

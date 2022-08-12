@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_first_app/utility/model.dart';
-import 'package:flutter_first_app/utility/utility.dart';
 import 'package:url_launcher/url_launcher_string.dart';
+
+import '/utility/model.dart';
+import '/utility/utility.dart';
 
 class ProfileDetailPage extends StatefulWidget {
   final int index;
