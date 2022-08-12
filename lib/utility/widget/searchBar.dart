@@ -6,6 +6,7 @@ class WWSearchBar extends StatefulWidget {
   final String title;
   final Color? color;
   final Color? backgroundColor;
+  final IconThemeData? iconTheme;
   final Function(String) searchAction;
   final Function(bool) toggleAction;
 
@@ -16,6 +17,7 @@ class WWSearchBar extends StatefulWidget {
     required this.toggleAction,
     this.color,
     this.backgroundColor,
+    this.iconTheme,
   }) : super(key: key);
 
   @override
@@ -45,6 +47,7 @@ class _WWSearchBarState extends State<WWSearchBar> {
       title: appBarTitleBar,
       titleSpacing: 0,
       centerTitle: true,
+      iconTheme: widget.iconTheme,
       backgroundColor: widget.backgroundColor,
       elevation: 0,
       actions: [
@@ -61,22 +64,6 @@ class _WWSearchBarState extends State<WWSearchBar> {
     );
 
     return appBar;
-  }
-
-  Widget toggleTitleBarMaker() {
-    if (!isSearchBar) {
-      isSearchBar = true;
-      searchIcon = const Icon(Icons.cancel);
-      appBarTitleBar = searchBar((value) => {widget.searchAction(value)});
-    } else {
-      isSearchBar = false;
-      searchIcon = const Icon(Icons.search);
-      appBarTitleBar = titleBar();
-    }
-
-    widget.toggleAction(isSearchBar);
-
-    return appBarTitleBar;
   }
 
   void toggleTitleBar() {

@@ -23,6 +23,8 @@ flutter:
   uses-material-design: true
   assets:
     - ./lib/assets/sample.json
+    - ./lib/assets/images/
+    
   fonts:
     # [FiraCode](https://github.com/tonsky/FiraCode)
     - family: FiraCode

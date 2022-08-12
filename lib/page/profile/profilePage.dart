@@ -229,6 +229,7 @@ class _ProfilePageState extends State<ProfilePage> {
           title: _title,
           color: Colors.black,
           backgroundColor: Colors.white,
+          iconTheme: const IconThemeData(color: Colors.blue),
           searchAction: (value) {
             List<Sample> list = [];
 
@@ -264,6 +265,56 @@ class _ProfilePageState extends State<ProfilePage> {
           onPressed: scrollToTop,
           tooltip: '回到第一個',
           child: const Icon(Icons.arrow_upward),
+        ),
+      ),
+      drawer: Drawer(
+        backgroundColor: Colors.yellow.shade200,
+        child: ListView(
+          children: [
+            DrawerHeader(
+              padding: EdgeInsets.zero,
+              decoration: const BoxDecoration(
+                color: Colors.blue,
+              ),
+              child: Utility.shared.assetImage(
+                './lib/assets/images/menu.jpg',
+                fit: BoxFit.cover,
+              ),
+            ),
+            Card(
+              child: ListTile(
+                title: const Text("Battery Full"),
+                subtitle: const Text("The battery is full."),
+                leading: const Icon(Icons.battery_full),
+                trailing: const Icon(Icons.star),
+                onTap: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ),
+            Card(
+              child: ListTile(
+                title: const Text("Anchor"),
+                subtitle: const Text("Lower the anchor."),
+                leading: const Icon(Icons.anchor),
+                trailing: const Icon(Icons.star),
+                onTap: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ),
+            Card(
+              child: ListTile(
+                title: const Text("Alarm"),
+                subtitle: const Text("This is the time."),
+                leading: const Icon(Icons.access_alarm),
+                trailing: const Icon(Icons.star),
+                onTap: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ),
+          ],
         ),
       ),
     );
