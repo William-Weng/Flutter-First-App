@@ -7,6 +7,7 @@ enum TransitionPosition {
   rightToLft,
   topToBottom,
   bottomToTop,
+  none,
 }
 
 extension TransitionPositionExtension on TransitionPosition {
@@ -46,9 +47,14 @@ extension TransitionPositionExtension on TransitionPosition {
           end: const Offset(0.0, 0.0),
         );
         break;
-    }
 
-    log('$this');
+      case TransitionPosition.none:
+        tween = Tween(
+          begin: const Offset(0.0, 0.0),
+          end: const Offset(0.0, 0.0),
+        );
+        break;
+    }
 
     return tween;
   }

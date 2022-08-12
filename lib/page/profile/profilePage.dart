@@ -75,15 +75,19 @@ class _ProfilePageState extends State<ProfilePage> {
 
   void itemOnTap(int index) {
     final sample = _sampleList.elementAt(index);
+
     Navigator.push(
-        context,
-        PageRouteTransition.shared.animation(
-          TransitionPosition.bottomToTop,
-          nextPage: ProfileDetailPage(sample: sample),
-          duration: const Duration(milliseconds: 2000),
-        )
-        // MaterialPageRoute(builder: (context) => ProfileDetailPage(sample: sample))
-        );
+      context,
+      PageRouteTransition.shared.sampleAnimation(
+        TransitionPosition.none,
+        duration: const Duration(milliseconds: 500),
+        nextPage: ProfileDetailPage(
+          index: index,
+          sample: sample,
+        ),
+      ),
+      // MaterialPageRoute(builder: (context) => ProfileDetailPage(sample: sample)),
+    );
   }
 
   void scrollToTop() {
@@ -277,9 +281,12 @@ class _ProfilePageState extends State<ProfilePage> {
         child: Stack(
           fit: StackFit.expand,
           children: [
-            Image.network(
-              sample.imageUrl,
-              fit: BoxFit.fitWidth,
+            Hero(
+              tag: "Hero_$index",
+              child: Utility.shared.webImage(
+                sample.imageUrl,
+                fit: BoxFit.fitWidth,
+              ),
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,

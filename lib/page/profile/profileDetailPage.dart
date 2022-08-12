@@ -4,9 +4,11 @@ import 'package:flutter_first_app/utility/utility.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class ProfileDetailPage extends StatefulWidget {
+  final int index;
   final Sample sample;
 
-  const ProfileDetailPage({Key? key, required this.sample}) : super(key: key);
+  const ProfileDetailPage({Key? key, required this.index, required this.sample})
+      : super(key: key);
 
   @override
   State<ProfileDetailPage> createState() => _ProfileDetailPageState();
@@ -31,12 +33,15 @@ class _ProfileDetailPageState extends State<ProfileDetailPage> {
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Container(
+            SizedBox(
               height: 200,
               child: InkWell(
-                child: Utility.shared.webImage(
-                  _sample.imageUrl,
-                  fit: BoxFit.fitWidth,
+                child: Hero(
+                  tag: "Hero_${widget.index}",
+                  child: Utility.shared.webImage(
+                    _sample.imageUrl,
+                    fit: BoxFit.fitWidth,
+                  ),
                 ),
                 onDoubleTap: () {
                   gotoUrl(_sample.imageUrl);
