@@ -53,12 +53,7 @@ class _AdvertPageState extends State<AdvertPage>
             isScrollable: true,
             controller: tabController,
             onTap: (index) {
-              setState(() {
-                appBarBackgroundColor = sampleTabModels
-                    .safeElementAt(index)
-                    ?.tabModel
-                    .backgroundColor;
-              });
+              changeBackgroundColor(index: index);
             },
           ),
         ),
@@ -75,13 +70,11 @@ class _AdvertPageState extends State<AdvertPage>
     tabList = tabsMaker();
     tabViewList = tabsWidgetMaker();
 
-    tabController = TabController(
-      initialIndex: 3,
-      length: tabList.length,
-      vsync: this,
-    )..addListener(() {
-        tabIndexOnChangeListener();
-      });
+    tabController =
+        TabController(initialIndex: 0, length: tabList.length, vsync: this)
+          ..animation?.addListener(() {
+            tabIndexOffsetOnChangeListener();
+          });
 
     WidgetsBinding.instance.addObserver(this);
   }
@@ -92,16 +85,21 @@ class _AdvertPageState extends State<AdvertPage>
   }
 
   // [Flutter：TabController簡單協調TabBar與TabView | IT人](https://iter01.com/12080.html)
-  void tabIndexOnChangeListener() {
-    final index = tabController.index;
-    final scrollOffset = tabController.animation?.value;
+  void tabIndexOffsetOnChangeListener() {
+    log('${tabController.animation?.value}');
 
-    if (scrollOffset != index.toDouble()) {
+    if (!tabController.isScrolledIndex()) {
       return;
     }
-    log('$index');
 
-    setState(() {});
+    changeBackgroundColor(index: tabController.index);
+  }
+
+  void changeBackgroundColor({required int index}) {
+    setState(() {
+      appBarBackgroundColor =
+          sampleTabModels.safeElementAt(index)?.tabModel.backgroundColor;
+    });
   }
 
   List<Tab> tabsMaker() {

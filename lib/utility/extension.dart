@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 extension WWList<T> on List<T> {
   T? safeElementAt(int safeIndex) {
     if (safeIndex < 0) {
@@ -9,5 +11,14 @@ extension WWList<T> on List<T> {
     }
 
     return elementAt(safeIndex);
+  }
+}
+
+extension WWTabController on TabController {
+  isScrolledIndex() {
+    final index = this.index;
+    final scrollOffset = animation?.value;
+
+    return (scrollOffset != index.toDouble()) ? false : true;
   }
 }
