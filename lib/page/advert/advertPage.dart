@@ -91,8 +91,14 @@ class _AdvertPageState extends State<AdvertPage>
     WidgetsBinding.instance.removeObserver(this);
   }
 
+  // [Flutter：TabController簡單協調TabBar與TabView | IT人](https://iter01.com/12080.html)
   void tabIndexOnChangeListener() {
     final index = tabController.index;
+    final scrollOffset = tabController.animation?.value;
+
+    if (scrollOffset != index.toDouble()) {
+      return;
+    }
     log('$index');
 
     setState(() {});
