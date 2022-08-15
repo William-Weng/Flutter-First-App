@@ -25,49 +25,63 @@ final List<BottomNavigationBarItemModel> tabBarItems = [
 final List<SampleDefaultTabModel> sampleTabModels = [
   SampleDefaultTabModel(
     tabModel: TabModel(
-        title: "衣服", color: Colors.black, backgroundColor: Colors.yellow),
+        title: "衣服",
+        color: Colors.black,
+        backgroundColor: const Color.fromARGB(255, 204, 255, 153)),
     body: const Center(
       child: Text('就是衣服'),
     ),
   ),
   SampleDefaultTabModel(
     tabModel: TabModel(
-        title: "褲子", color: Colors.black, backgroundColor: Colors.green),
+        title: "褲子",
+        color: Colors.black,
+        backgroundColor: const Color.fromARGB(255, 204, 255, 204)),
     body: const Center(
       child: Text('就是褲子'),
     ),
   ),
   SampleDefaultTabModel(
     tabModel: TabModel(
-        title: "上衣", color: Colors.black, backgroundColor: Colors.indigo),
+        title: "上衣",
+        color: Colors.black,
+        backgroundColor: const Color.fromARGB(255, 204, 255, 255)),
     body: const Center(
       child: Text('就是上衣'),
     ),
   ),
   SampleDefaultTabModel(
     tabModel: TabModel(
-        title: "運動鞋", color: Colors.black, backgroundColor: Colors.grey),
+        title: "運動鞋",
+        color: Colors.black,
+        backgroundColor: const Color.fromARGB(255, 255, 255, 204)),
     body: const Center(
       child: Text('就是運動鞋'),
     ),
   ),
   SampleDefaultTabModel(
     tabModel: TabModel(
-        title: "衣服", color: Colors.black, backgroundColor: Colors.amber),
+        title: "衣服",
+        color: Colors.black,
+        backgroundColor: const Color.fromARGB(255, 255, 204, 204)),
     body: const Center(
       child: Text('就是衣服'),
     ),
   ),
   SampleDefaultTabModel(
     tabModel: TabModel(
-        title: "3C", color: Colors.black, backgroundColor: Colors.lightGreen),
+        title: "3C",
+        color: Colors.black,
+        backgroundColor: const Color.fromARGB(255, 255, 153, 255)),
     body: const Center(
       child: Text('就是3C'),
     ),
   ),
   SampleDefaultTabModel(
     tabModel: TabModel(
-        title: "電器", color: Colors.black, backgroundColor: Colors.pinkAccent),
+        title: "電器",
+        color: Colors.black,
+        backgroundColor: const Color.fromARGB(255, 204, 255, 0)),
     body: const Center(
       child: Text('就是電器'),
     ),

@@ -51,6 +51,7 @@ class _AdvertPageState extends State<AdvertPage>
             tabs: tabList,
             indicatorColor: Colors.blue,
             isScrollable: true,
+            controller: tabController,
             onTap: (index) {
               setState(() {
                 appBarBackgroundColor = sampleTabModels
@@ -63,11 +64,38 @@ class _AdvertPageState extends State<AdvertPage>
         ),
         body: TabBarView(
           physics: const BouncingScrollPhysics(),
-          // controller: tabController,
+          controller: tabController,
           children: tabViewList,
         ),
       ),
     );
+  }
+
+  void initTabController() {
+    tabList = tabsMaker();
+    tabViewList = tabsWidgetMaker();
+
+    tabController = TabController(
+      initialIndex: 3,
+      length: tabList.length,
+      vsync: this,
+    )..addListener(() {
+        tabIndexOnChangeListener();
+      });
+
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  void dismissTabController() {
+    tabController.dispose();
+    WidgetsBinding.instance.removeObserver(this);
+  }
+
+  void tabIndexOnChangeListener() {
+    final index = tabController.index;
+    log('$index');
+
+    setState(() {});
   }
 
   List<Tab> tabsMaker() {
@@ -91,26 +119,5 @@ class _AdvertPageState extends State<AdvertPage>
   List<Widget> tabsWidgetMaker() {
     final bodies = sampleTabModels.map((model) => model.body).toList();
     return bodies;
-  }
-
-  void tabIndexOnChangeListener() {
-    final index = DefaultTabController.of(context)?.index;
-
-    log('$index');
-
-    setState(() {});
-  }
-
-  void initTabController() {
-    tabList = tabsMaker();
-    tabViewList = tabsWidgetMaker();
-    tabController = TabController(length: tabList.length, vsync: this);
-    tabController.addListener(tabIndexOnChangeListener);
-    WidgetsBinding.instance.addObserver(this);
-  }
-
-  void dismissTabController() {
-    tabController.dispose();
-    WidgetsBinding.instance.removeObserver(this);
   }
 }
