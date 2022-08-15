@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
-import '/utility/model.dart';
+import '../../utility/model/bottomNavigationBarItemModel.dart';
 import '/utility/utility.dart';
 
 class ProfileDetailPage extends StatefulWidget {

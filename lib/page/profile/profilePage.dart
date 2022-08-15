@@ -7,7 +7,7 @@ import '/utility/constant.dart';
 import '/utility/global.dart';
 import '/utility/transition.dart';
 import '/utility/widget/searchBar.dart';
-import '/utility/model.dart';
+import '../../utility/model/bottomNavigationBarItemModel.dart';
 import '/utility/utility.dart';
 import '/utility/extension.dart';
 import '/utility/widget/progressIndicator.dart';
@@ -267,19 +267,24 @@ class _ProfilePageState extends State<ProfilePage> {
           child: const Icon(Icons.arrow_upward),
         ),
       ),
+      // https://blog.logrocket.com/how-to-add-navigation-drawer-flutter/
+      //endDrawer: ,
       drawer: Drawer(
         backgroundColor: Colors.yellow.shade200,
         child: ListView(
           children: [
-            DrawerHeader(
+            const DrawerHeader(
               padding: EdgeInsets.zero,
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 color: Colors.blue,
+                image: DecorationImage(
+                  image: AssetImage(
+                    './lib/assets/images/menu.jpg',
+                  ),
+                  fit: BoxFit.cover,
+                ),
               ),
-              child: Utility.shared.assetImage(
-                './lib/assets/images/menu.jpg',
-                fit: BoxFit.cover,
-              ),
+              child: null,
             ),
             Card(
               child: ListTile(
