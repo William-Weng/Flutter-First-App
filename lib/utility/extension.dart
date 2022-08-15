@@ -21,4 +21,24 @@ extension WWTabController on TabController {
 
     return (scrollOffset != index.toDouble()) ? false : true;
   }
+
+  AnimationStatus? scrollDirection() {
+    final animation = this.animation;
+
+    if (animation == null) {
+      return null;
+    }
+
+    final indexValue = animation.value;
+
+    if (indexValue > index.toDouble()) {
+      return AnimationStatus.forward;
+    }
+
+    if (indexValue < index.toDouble()) {
+      return AnimationStatus.reverse;
+    }
+
+    return null;
+  }
 }

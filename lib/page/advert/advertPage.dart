@@ -28,8 +28,8 @@ class _AdvertPageState extends State<AdvertPage>
 
   @override
   void dispose() {
-    super.dispose();
     dismissTabController();
+    super.dispose();
   }
 
   @override
@@ -52,9 +52,7 @@ class _AdvertPageState extends State<AdvertPage>
             indicatorColor: Colors.blue,
             isScrollable: true,
             controller: tabController,
-            onTap: (index) {
-              changeBackgroundColor(index: index);
-            },
+            onTap: (index) {},
           ),
         ),
         body: TabBarView(
@@ -72,9 +70,11 @@ class _AdvertPageState extends State<AdvertPage>
 
     tabController =
         TabController(initialIndex: 0, length: tabList.length, vsync: this)
-          ..animation?.addListener(() {
-            tabIndexOffsetOnChangeListener();
-          });
+          ..animation?.addListener(
+            () {
+              tabIndexOffsetOnChangeListener();
+            },
+          );
 
     WidgetsBinding.instance.addObserver(this);
   }
@@ -86,19 +86,51 @@ class _AdvertPageState extends State<AdvertPage>
 
   // [Flutter：TabController簡單協調TabBar與TabView | IT人](https://iter01.com/12080.html)
   void tabIndexOffsetOnChangeListener() {
-    log('${tabController.animation?.value}');
+    final animation = tabController.animation;
+
+    if (animation == null) {
+      return;
+    }
+
+    final direction = tabController.scrollDirection();
+
+    final indexColor = sampleTabModels
+        .safeElementAt(tabController.index)
+        ?.tabModel
+        .backgroundColor;
+
+    final nextIndex = (direction != AnimationStatus.reverse)
+        ? (tabController.index + 1)
+        : (tabController.index - 1);
+
+    final nextIndexColor =
+        sampleTabModels.safeElementAt(nextIndex)?.tabModel.backgroundColor;
+
+    var opacity = (direction != AnimationStatus.reverse)
+        ? (animation.value - tabController.index.toDouble())
+        : (-animation.value + tabController.index.toDouble());
+
+    if (opacity > 1.0) {
+      opacity = 1.0;
+    }
+
+    if (opacity < 0.5) {
+      opacity = 1 - opacity;
+      changeBackgroundColor(color: indexColor?.withOpacity(opacity));
+    } else {
+      changeBackgroundColor(color: nextIndexColor?.withOpacity(opacity));
+    }
 
     if (!tabController.isScrolledIndex()) {
       return;
     }
 
-    changeBackgroundColor(index: tabController.index);
+    changeBackgroundColor(color: indexColor);
   }
 
-  void changeBackgroundColor({required int index}) {
+  void changeBackgroundColor({required Color? color}) {
     setState(() {
-      appBarBackgroundColor =
-          sampleTabModels.safeElementAt(index)?.tabModel.backgroundColor;
+      appBarBackgroundColor = color;
     });
   }
 
