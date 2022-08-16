@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_first_app/utility/setting.dart';
 import 'package:http/http.dart';
 
 import '/utility/constant.dart';
@@ -26,8 +27,6 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  final int simulationSeconds = 2;
-  final int offsetRange = 100;
   final double itemHeight = 200.0;
   final ScrollController _scrollController = ScrollController();
 
@@ -132,13 +131,14 @@ class _ProfilePageState extends State<ProfilePage> {
     downloadJSON(
       widget.assetsPath,
       action: (list) {
-        Future.delayed(Duration(seconds: simulationSeconds)).then((value) => {
-              WWProgressIndicator.shared.dismiss(context),
-              isDownloading = false,
-              setState(() {
-                _sampleList = list;
-              }),
-            });
+        Future.delayed(const Duration(seconds: simulationSeconds))
+            .then((value) => {
+                  WWProgressIndicator.shared.dismiss(context),
+                  isDownloading = false,
+                  setState(() {
+                    _sampleList = list;
+                  }),
+                });
       },
     );
 
@@ -159,13 +159,14 @@ class _ProfilePageState extends State<ProfilePage> {
     downloadJSON(
       widget.assetsPath,
       action: (list) {
-        Future.delayed(Duration(seconds: simulationSeconds)).then((value) => {
-              WWProgressIndicator.shared.dismiss(context),
-              isDownloading = false,
-              setState(() {
-                _sampleList.addAll(list);
-              }),
-            });
+        Future.delayed(const Duration(seconds: simulationSeconds))
+            .then((value) => {
+                  WWProgressIndicator.shared.dismiss(context),
+                  isDownloading = false,
+                  setState(() {
+                    _sampleList.addAll(list);
+                  }),
+                });
       },
     );
 
@@ -365,7 +366,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 Expanded(
                   child: Container(
                     decoration: const BoxDecoration(
-                      color: Color.fromARGB(64, 0, 0, 0),
+                      color: Color.fromARGB(8, 0, 0, 0),
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),

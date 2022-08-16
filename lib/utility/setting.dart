@@ -2,12 +2,15 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_first_app/page/advert/advertPage.dart';
-import 'package:flutter_first_app/utility/model/clothes.dart';
 
 import '/page/home/homePage.dart';
 import '/page/profile/profilePage.dart';
 import 'model/bottomNavigationBarItemModel.dart';
 import 'model/sampleDefaultTabModel.dart';
+
+const int simulationSeconds = 2;
+const int offsetRange = 100;
+const int maxDownloadCount = 20;
 
 // MARK: - TabBar的資訊
 final List<BottomNavigationBarItemModel> tabBarItems = [

@@ -1,30 +1,53 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_first_app/utility/utility.dart';
-
+import 'package:flutter_first_app/utility/widget/progressIndicator.dart';
+import '/utility/setting.dart';
+import '/utility/utility.dart';
 import '/utility/extension.dart';
 import '/utility/model/clothes.dart';
 
 class ClothesWidget extends StatefulWidget {
-  final List<ClothesModel> models;
-
-  const ClothesWidget({Key? key, required this.models}) : super(key: key);
+  const ClothesWidget({Key? key}) : super(key: key);
 
   @override
   State<ClothesWidget> createState() => _ClothesWidgetState();
 }
 
 class _ClothesWidgetState extends State<ClothesWidget> {
+  final ScrollController _scrollController = ScrollController();
+  final String assetsPath = "./lib/assets/json/clothes.json";
+
+  bool isDownloading = false;
+  List<ClothesModel> models = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(scrollingListener);
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      simulationDownloadJSON();
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _scrollController.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final gridView = GridView.builder(
+      key: Utility.shared.pageStorageKey(widget),
       physics: const BouncingScrollPhysics(),
+      controller: _scrollController,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
         mainAxisSpacing: 10,
         crossAxisSpacing: 3,
         childAspectRatio: 0.85,
       ),
-      itemCount: widget.models.length,
+      itemCount: models.length,
       itemBuilder: (context, index) => _gridViewItem(context, index),
     );
 
@@ -46,7 +69,7 @@ class _ClothesWidgetState extends State<ClothesWidget> {
       return items.toList();
     }
 
-    final model = widget.models.safeElementAt(index);
+    final model = models.safeElementAt(index);
 
     if (model == null) {
       return Utility.shared.assetImage('./lib/assets/images/404.jpeg');
@@ -70,5 +93,59 @@ class _ClothesWidgetState extends State<ClothesWidget> {
     );
 
     return item;
+  }
+
+  void scrollingListener() {
+    final offset = _scrollController.offset;
+
+    if (isDownloading) {
+      return;
+    }
+
+    if (offset < -offsetRange) {
+      simulationDownloadJSON(isReload: true);
+    }
+
+    if (offset >= _scrollController.position.maxScrollExtent + offsetRange) {
+      if (models.length >= maxDownloadCount) {
+        return;
+      }
+      simulationDownloadJSON();
+    }
+  }
+
+  void downloadJSON(String assetsPath,
+      {required Function(List<ClothesModel>) action}) {
+    Utility.shared.readJSON(assetsPath: assetsPath).then((value) {
+      final list = value['result'] as List<dynamic>;
+      final sampleList = ClothesModel.fromList(list);
+
+      action(sampleList);
+    });
+  }
+
+  void simulationDownloadJSON({bool isReload = false}) {
+    WWProgressIndicator.shared.display(context);
+
+    isDownloading = true;
+
+    downloadJSON(
+      assetsPath,
+      action: (list) {
+        Future.delayed(const Duration(seconds: simulationSeconds))
+            .then((value) => {
+                  WWProgressIndicator.shared.dismiss(context),
+                  isDownloading = false,
+                  setState(() {
+                    if (!isReload) {
+                      models.addAll(list);
+                      return;
+                    }
+
+                    models = list;
+                  }),
+                });
+      },
+    );
   }
 }

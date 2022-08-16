@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
 
 import '/utility/widget/clothesWidget.dart';
-import '/utility/global.dart';
-import '/utility/model/clothes.dart';
-import '/utility/utility.dart';
 import '/utility/setting.dart';
 import '/utility/extension.dart';
 
 class AdvertPage extends StatefulWidget {
   final String title;
   final String assetsPath = "./lib/assets/json/clothes.json";
-  final int maxDownloadCount = 20;
 
   const AdvertPage({Key? key, required this.title}) : super(key: key);
 
@@ -29,17 +25,6 @@ class _AdvertPageState extends State<AdvertPage>
   void initState() {
     super.initState();
     initTabController();
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      downloadJSON(
-        widget.assetsPath,
-        action: (list) {
-          setState(() {
-            Global.clothesList = list;
-          });
-        },
-      );
-    });
   }
 
   @override
@@ -71,17 +56,19 @@ class _AdvertPageState extends State<AdvertPage>
             onTap: (index) {},
           ),
         ),
+
+        /// https://www.gushiciku.cn/pl/gztx/zh-tw
         body: TabBarView(
           physics: const BouncingScrollPhysics(),
           controller: tabController,
-          children: [
-            ClothesWidget(models: Global.clothesList),
-            const ClothesWidget(models: []),
-            const ClothesWidget(models: []),
-            const ClothesWidget(models: []),
-            const ClothesWidget(models: []),
-            const ClothesWidget(models: []),
-            const ClothesWidget(models: []),
+          children: const [
+            ClothesWidget(),
+            Center(child: Text('404')),
+            Center(child: Text('404')),
+            Center(child: Text('404')),
+            Center(child: Text('404')),
+            Center(child: Text('404')),
+            Center(child: Text('404')),
           ],
         ),
       ),
@@ -175,33 +162,5 @@ class _AdvertPageState extends State<AdvertPage>
   List<Widget> tabsWidgetMaker() {
     final bodies = sampleTabModels.map((model) => model.body).toList();
     return bodies;
-  }
-
-  void downloadJSON(String assetsPath,
-      {required Function(List<ClothesModel>) action}) {
-    Utility.shared.readJSON(assetsPath: assetsPath).then((value) {
-      final list = value['result'] as List<dynamic>;
-      final sampleList = ClothesModel.fromList(list);
-
-      action(sampleList);
-    });
-  }
-
-  Widget clothesWidget(List<ClothesModel> list) {
-    final gridView = GridView.builder(
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        mainAxisSpacing: 10,
-        crossAxisSpacing: 10,
-        crossAxisCount: 2,
-        childAspectRatio: 1.0,
-      ),
-      itemCount: list.length,
-      itemBuilder: (context, index) {
-        return Image.network(
-            "https://www.uniqlo.com/tw/hmall/test/u0000000014242/main/first/561/1.jpg");
-      },
-    );
-
-    return gridView;
   }
 }
