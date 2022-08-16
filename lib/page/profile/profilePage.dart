@@ -348,7 +348,7 @@ class _ProfilePageState extends State<ProfilePage> {
               children: [
                 Container(
                   decoration: const BoxDecoration(
-                    color: Color.fromARGB(96, 0, 0, 0),
+                    color: Color.fromARGB(96, 255, 0, 0),
                   ),
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),

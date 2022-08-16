@@ -4,9 +4,9 @@
         "imageUrl": "https://www.uniqlo.com/tw/hmall/test/u0000000014242/main/first/561/1.jpg",
         "title": "女裝 羅紋中高領T恤(長袖)",
         "colors": [
-          "#8F3A84",
-          "#FFEE58",
-          "#AED581"
+          "#FFEB3B",
+          "#FF5722",
+          "#00695C"
         ],
         "cost": 590
       },
@@ -14,9 +14,7 @@
         "imageUrl": "https://www.uniqlo.com/tw/hmall/test/u0000000014044/main/first/561/1.jpg",
         "title": "女裝 法蘭絨格紋襯衫(長袖)",
         "colors": [
-          "#8F3A84",
-          "#FFEE58",
-          "#AED581"
+          "#8F3A84"
         ],
         "cost": 990
       },
@@ -24,9 +22,11 @@
         "imageUrl": "https://www.uniqlo.com/tw/hmall/test/u0000000014182/main/first/561/1.jpg",
         "title": "女裝 柔軟舒膚針織短版開襟外套(長袖)",
         "colors": [
-          "#8F3A84",
-          "#FFEE58",
-          "#AED581"
+          "#66BB6A",
+          "#C5E1A5",
+          "#673AB7",
+          "#C5CAE9",
+          "#FF8A65"
         ],
         "cost": 990
       },
@@ -34,9 +34,8 @@
         "imageUrl": "https://www.uniqlo.com/tw/hmall/test/u0000000014120/main/first/561/1.jpg",
         "title": "女裝 休閒連帽外套(長袖)",
         "colors": [
-          "#8F3A84",
-          "#FFEE58",
-          "#AED581"
+          "#1DE9B6",
+          "#FFFF00"
         ],
         "cost": 1190
       },
@@ -44,9 +43,10 @@
         "imageUrl": "https://www.uniqlo.com/tw/hmall/test/u0000000014179/main/first/561/1.jpg",
         "title": "女裝 魚尾裙",
         "colors": [
-          "#8F3A84",
-          "#FFEE58",
-          "#AED581"
+          "#81D4FA",
+          "#AEEA00",
+          "#ECEFF1",
+          "#E040FB"
         ],
         "cost": 1290
       }

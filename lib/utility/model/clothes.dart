@@ -17,6 +17,7 @@ class ClothesModel {
     required this.colors,
   });
 
+  // https://www.jianshu.com/p/46b1408f3a79
   factory ClothesModel.fromJSON(Map<String, dynamic> json) {
     final hexColorList = json['colors'] as List<dynamic>;
 

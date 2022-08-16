@@ -1,10 +1,9 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_first_app/utility/model/clothes.dart';
-import 'package:flutter_first_app/utility/model/sampleDefaultTabModel.dart';
-import 'package:flutter_first_app/utility/utility.dart';
 
+import '/utility/widget/clothesWidget.dart';
+import '/utility/global.dart';
+import '/utility/model/clothes.dart';
+import '/utility/utility.dart';
 import '/utility/setting.dart';
 import '/utility/extension.dart';
 
@@ -21,10 +20,10 @@ class AdvertPage extends StatefulWidget {
 
 class _AdvertPageState extends State<AdvertPage>
     with SingleTickerProviderStateMixin, WidgetsBindingObserver {
+  late Color? appBarBackgroundColor = Colors.yellowAccent;
   late TabController tabController;
   late List<Tab> tabList;
   late List<Widget> tabViewList;
-  late Color? appBarBackgroundColor = Colors.yellowAccent;
 
   @override
   void initState() {
@@ -34,8 +33,10 @@ class _AdvertPageState extends State<AdvertPage>
     WidgetsBinding.instance.addPostFrameCallback((_) {
       downloadJSON(
         widget.assetsPath,
-        action: (p0) {
-          log('$p0');
+        action: (list) {
+          setState(() {
+            Global.clothesList = list;
+          });
         },
       );
     });
@@ -73,7 +74,15 @@ class _AdvertPageState extends State<AdvertPage>
         body: TabBarView(
           physics: const BouncingScrollPhysics(),
           controller: tabController,
-          children: tabViewList,
+          children: [
+            ClothesWidget(models: Global.clothesList),
+            const ClothesWidget(models: []),
+            const ClothesWidget(models: []),
+            const ClothesWidget(models: []),
+            const ClothesWidget(models: []),
+            const ClothesWidget(models: []),
+            const ClothesWidget(models: []),
+          ],
         ),
       ),
     );
@@ -85,11 +94,7 @@ class _AdvertPageState extends State<AdvertPage>
 
     tabController =
         TabController(initialIndex: 0, length: tabList.length, vsync: this)
-          ..animation?.addListener(
-            () {
-              tabIndexOffsetOnChangeListener();
-            },
-          );
+          ..animation?.addListener(() => tabIndexOffsetOnChangeListener());
 
     WidgetsBinding.instance.addObserver(this);
   }
@@ -180,5 +185,23 @@ class _AdvertPageState extends State<AdvertPage>
 
       action(sampleList);
     });
+  }
+
+  Widget clothesWidget(List<ClothesModel> list) {
+    final gridView = GridView.builder(
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        mainAxisSpacing: 10,
+        crossAxisSpacing: 10,
+        crossAxisCount: 2,
+        childAspectRatio: 1.0,
+      ),
+      itemCount: list.length,
+      itemBuilder: (context, index) {
+        return Image.network(
+            "https://www.uniqlo.com/tw/hmall/test/u0000000014242/main/first/561/1.jpg");
+      },
+    );
+
+    return gridView;
   }
 }

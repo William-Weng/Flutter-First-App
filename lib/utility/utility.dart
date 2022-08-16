@@ -1,5 +1,6 @@
 import 'dart:async' show Future;
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
@@ -9,7 +10,15 @@ class Utility {
 
   static final shared = Utility._();
 
-  bool isShow = false;
+  image(String path, {BoxFit? fit}) {
+    bool isMatch = RegExp(r'^(https://|http://)').hasMatch(path);
+
+    if (!isMatch) {
+      return assetImage(path);
+    }
+
+    return webImage(path);
+  }
 
   Image assetImage(String name, {BoxFit? fit}) {
     return Image.asset(

@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_first_app/page/advert/advertPage.dart';
+import 'package:flutter_first_app/utility/model/clothes.dart';
 
 import '/page/home/homePage.dart';
 import '/page/profile/profilePage.dart';
@@ -22,30 +25,15 @@ final List<BottomNavigationBarItemModel> tabBarItems = [
   ),
 ];
 
+// https://ithelp.ithome.com.tw/articles/10217200
 final List<SampleDefaultTabModel> sampleTabModels = [
   SampleDefaultTabModel(
     tabModel: TabModel(
         title: "衣服",
         color: Colors.black,
         backgroundColor: const Color.fromARGB(255, 204, 255, 153)),
-    body: GridView.count(
-      padding: const EdgeInsets.all(10),
-      scrollDirection: Axis.vertical,
-      crossAxisCount: 2,
-      crossAxisSpacing: 10,
-      mainAxisSpacing: 10,
-      children: [
-        Image.network(
-            "https://www.uniqlo.com/tw/hmall/test/u0000000014242/main/first/561/1.jpg"),
-        Image.network(
-            "https://www.uniqlo.com/tw/hmall/test/u0000000014044/main/first/561/1.jpg"),
-        Image.network(
-            "https://www.uniqlo.com/tw/hmall/test/u0000000014182/main/first/561/1.jpg"),
-        Image.network(
-            "https://www.uniqlo.com/tw/hmall/test/u0000000014120/main/first/561/1.jpg"),
-        Image.network(
-            "https://www.uniqlo.com/tw/hmall/test/u0000000014179/main/first/561/1.jpg"),
-      ],
+    body: const Center(
+      child: Text('就是衣服'),
     ),
   ),
   SampleDefaultTabModel(
