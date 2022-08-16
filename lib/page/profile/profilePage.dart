@@ -16,7 +16,7 @@ import '/page/profile/profileDetailPage.dart';
 
 class ProfilePage extends StatefulWidget {
   final String title;
-  final String assetsPath = "./lib/assets/sample.json";
+  final String assetsPath = "./lib/assets/json/sample.json";
   final int maxDownloadCount = 20;
 
   const ProfilePage({Key? key, required this.title}) : super(key: key);

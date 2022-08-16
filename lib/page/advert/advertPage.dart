@@ -1,12 +1,16 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_first_app/utility/utility.dart';
 
 import '/utility/setting.dart';
 import '/utility/extension.dart';
 
 class AdvertPage extends StatefulWidget {
   final String title;
+  final String assetsPath = "./lib/assets/json/clothes.json";
+  final int maxDownloadCount = 20;
+
   const AdvertPage({Key? key, required this.title}) : super(key: key);
 
   @override
@@ -155,5 +159,15 @@ class _AdvertPageState extends State<AdvertPage>
   List<Widget> tabsWidgetMaker() {
     final bodies = sampleTabModels.map((model) => model.body).toList();
     return bodies;
+  }
+
+  void downloadJSON(String assetsPath,
+      {required Function(List<dynamic>) action}) {
+    Utility.shared.readJSON(assetsPath: assetsPath).then((value) {
+      final list = value['result'] as List<dynamic>;
+      // final sampleList = Sample.fromList(list);
+
+      // action(sampleList);
+    });
   }
 }

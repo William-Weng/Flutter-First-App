@@ -28,8 +28,47 @@ final List<SampleDefaultTabModel> sampleTabModels = [
         title: "衣服",
         color: Colors.black,
         backgroundColor: const Color.fromARGB(255, 204, 255, 153)),
-    body: const Center(
-      child: Text('就是衣服'),
+    body: GridView.count(
+      padding: const EdgeInsets.all(10),
+      scrollDirection: Axis.vertical,
+      crossAxisCount: 2,
+      crossAxisSpacing: 10,
+      mainAxisSpacing: 10,
+      children: [
+        Container(
+          color: Colors.lightBlue,
+        ),
+        Container(
+          color: Colors.lightBlue,
+        ),
+        Container(
+          color: Colors.lightBlue,
+        ),
+        Container(
+          color: Colors.lightBlue,
+        ),
+        Container(
+          color: Colors.lightBlue,
+        ),
+        Container(
+          color: Colors.lightBlue,
+        ),
+        Container(
+          color: Colors.lightBlue,
+        ),
+        Container(
+          color: Colors.lightBlue,
+        ),
+        Container(
+          color: Colors.lightBlue,
+        ),
+        Container(
+          color: Colors.lightBlue,
+        ),
+        Container(
+          color: Colors.lightBlue,
+        ),
+      ],
     ),
   ),
   SampleDefaultTabModel(
