@@ -7,7 +7,7 @@ import '/utility/constant.dart';
 import '/utility/global.dart';
 import '/utility/transition.dart';
 import '/utility/widget/searchBar.dart';
-import '../../utility/model/bottomNavigationBarItemModel.dart';
+import '/utility/model/bottomNavigationBarItemModel.dart';
 import '/utility/utility.dart';
 import '/utility/extension.dart';
 import '/utility/widget/progressIndicator.dart';

@@ -14,6 +14,19 @@ extension WWList<T> on List<T> {
   }
 }
 
+extension WWString on String {
+  // https://stackoverflow.com/questions/50081213/how-do-i-use-hexadecimal-color-strings-in-flutter
+  Color hexColor() {
+    var code = toString().toUpperCase().replaceAll("#", "");
+
+    if (code.length == 6) {
+      code += "FF";
+    }
+
+    return Color(int.parse(code, radix: 16));
+  }
+}
+
 extension WWTabController on TabController {
   isScrolledIndex() {
     final index = this.index;

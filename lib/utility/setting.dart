@@ -35,39 +35,16 @@ final List<SampleDefaultTabModel> sampleTabModels = [
       crossAxisSpacing: 10,
       mainAxisSpacing: 10,
       children: [
-        Container(
-          color: Colors.lightBlue,
-        ),
-        Container(
-          color: Colors.lightBlue,
-        ),
-        Container(
-          color: Colors.lightBlue,
-        ),
-        Container(
-          color: Colors.lightBlue,
-        ),
-        Container(
-          color: Colors.lightBlue,
-        ),
-        Container(
-          color: Colors.lightBlue,
-        ),
-        Container(
-          color: Colors.lightBlue,
-        ),
-        Container(
-          color: Colors.lightBlue,
-        ),
-        Container(
-          color: Colors.lightBlue,
-        ),
-        Container(
-          color: Colors.lightBlue,
-        ),
-        Container(
-          color: Colors.lightBlue,
-        ),
+        Image.network(
+            "https://www.uniqlo.com/tw/hmall/test/u0000000014242/main/first/561/1.jpg"),
+        Image.network(
+            "https://www.uniqlo.com/tw/hmall/test/u0000000014044/main/first/561/1.jpg"),
+        Image.network(
+            "https://www.uniqlo.com/tw/hmall/test/u0000000014182/main/first/561/1.jpg"),
+        Image.network(
+            "https://www.uniqlo.com/tw/hmall/test/u0000000014120/main/first/561/1.jpg"),
+        Image.network(
+            "https://www.uniqlo.com/tw/hmall/test/u0000000014179/main/first/561/1.jpg"),
       ],
     ),
   ),

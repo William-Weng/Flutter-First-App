@@ -1,6 +1,8 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_first_app/utility/model/clothes.dart';
+import 'package:flutter_first_app/utility/model/sampleDefaultTabModel.dart';
 import 'package:flutter_first_app/utility/utility.dart';
 
 import '/utility/setting.dart';
@@ -28,6 +30,15 @@ class _AdvertPageState extends State<AdvertPage>
   void initState() {
     super.initState();
     initTabController();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      downloadJSON(
+        widget.assetsPath,
+        action: (p0) {
+          log('$p0');
+        },
+      );
+    });
   }
 
   @override
@@ -162,12 +173,12 @@ class _AdvertPageState extends State<AdvertPage>
   }
 
   void downloadJSON(String assetsPath,
-      {required Function(List<dynamic>) action}) {
+      {required Function(List<ClothesModel>) action}) {
     Utility.shared.readJSON(assetsPath: assetsPath).then((value) {
       final list = value['result'] as List<dynamic>;
-      // final sampleList = Sample.fromList(list);
+      final sampleList = ClothesModel.fromList(list);
 
-      // action(sampleList);
+      action(sampleList);
     });
   }
 }
