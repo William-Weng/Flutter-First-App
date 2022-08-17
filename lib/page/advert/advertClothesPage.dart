@@ -81,6 +81,7 @@ class _AdvertClothesPageState extends State<AdvertClothesPage> {
     final src = model.imageUrl;
     final image = Utility.shared.webImage(
       src,
+      loadingImage: loadingImageName,
       errorImage: errorImageName,
     );
 

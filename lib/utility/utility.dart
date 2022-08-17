@@ -1,23 +1,24 @@
 import 'dart:async' show Future;
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
+import './extension.dart';
 
 class Utility {
   Utility._();
 
   static final shared = Utility._();
 
-  image(String path, {required String errorImage, BoxFit? fit}) {
+  image(String path,
+      {required String loadingImage, required String errorImage, BoxFit? fit}) {
     bool isMatch = RegExp(r'^(https://|http://)').hasMatch(path);
 
     if (!isMatch) {
       return assetImage(path, errorImage: errorImage);
     }
 
-    return webImage(path, errorImage: errorImage);
+    return webImage(path, loadingImage: loadingImage, errorImage: errorImage);
   }
 
   Image assetImage(String name, {required String errorImage, BoxFit? fit}) {
@@ -31,12 +32,27 @@ class Utility {
   }
 
   // https://sa123.cc/t8u0ukszw4jd1n66tjtm.html
-  Image webImage(String src, {required String errorImage, BoxFit? fit}) {
+  Image webImage(String src,
+      {required String loadingImage, required String errorImage, BoxFit? fit}) {
     return Image.network(
       src,
       fit: fit,
       errorBuilder: (context, error, stackTrace) {
         return Image.asset(errorImage);
+      },
+      loadingBuilder: (context, child, loadingProgress) {
+        if (loadingProgress == null) {
+          return child;
+        }
+
+        final rate = loadingProgress.progressRate(2);
+
+        return Center(
+          child: Text(
+            '$rate',
+            style: const TextStyle(fontSize: 24.0),
+          ),
+        );
       },
     );
   }

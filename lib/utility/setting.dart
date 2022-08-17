@@ -12,6 +12,7 @@ const int simulationSeconds = 2;
 const int offsetRange = 30;
 const int maxDownloadCount = 20;
 
+const String loadingImageName = './lib/assets/images/404.jpeg';
 const String errorImageName = './lib/assets/images/404.jpeg';
 
 // MARK: - TabBar的資訊

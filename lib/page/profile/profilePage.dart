@@ -343,6 +343,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 sample.imageUrl,
                 fit: BoxFit.fitWidth,
                 errorImage: errorImageName,
+                loadingImage: loadingImageName,
               ),
             ),
             Column(

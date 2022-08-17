@@ -1,6 +1,3 @@
-import 'dart:async';
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 
 extension WWList<T> on List<T> {
@@ -59,26 +56,16 @@ extension WWTabController on TabController {
   }
 }
 
-extension WWImageProvider on ImageProvider<Object> {
-  void jj() {
-    resolve(const ImageConfiguration()).addListener(ImageStreamListener(
-      (image, synchronousCall) {
-        log('image => $image / synchronousCall => $synchronousCall');
-      },
-    ));
-  }
-}
+extension WWImageChunkEvent on ImageChunkEvent {
+  // https://stackoverflow.com/questions/50758704/how-to-convert-to-double
+  double progressRate(int fractionDigits) {
+    if (expectedTotalBytes == null) {
+      return 0;
+    }
 
-// https://wizardforcel.gitbooks.io/gsyflutterbook/content/Flutter-10.html
-extension WWImage on Image {
-  void defaultImage() {
-    final Completer<void> completer = Completer<void>();
+    final rate = (cumulativeBytesLoaded * 100 / expectedTotalBytes!)
+        .toStringAsFixed(fractionDigits);
 
-    image.resolve(const ImageConfiguration()).addListener(ImageStreamListener(
-      (image, synchronousCall) {
-        log('image => $image / synchronousCall => $synchronousCall');
-        completer.complete();
-      },
-    ));
+    return double.parse(rate);
   }
 }

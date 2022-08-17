@@ -43,6 +43,7 @@ class _ProfileDetailPageState extends State<ProfileDetailPage> {
                   child: Utility.shared.webImage(
                     _sample.imageUrl,
                     fit: BoxFit.fitWidth,
+                    loadingImage: loadingImageName,
                     errorImage: errorImageName,
                   ),
                 ),
