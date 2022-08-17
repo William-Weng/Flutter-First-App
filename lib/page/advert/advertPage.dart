@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '/utility/widget/clothesWidget.dart';
+import 'advertClothesPage.dart';
 import '/utility/setting.dart';
 import '/utility/extension.dart';
 
@@ -62,7 +62,7 @@ class _AdvertPageState extends State<AdvertPage>
           physics: const BouncingScrollPhysics(),
           controller: tabController,
           children: const [
-            ClothesWidget(),
+            AdvertClothesPage(),
             Center(child: Text('404')),
             Center(child: Text('404')),
             Center(child: Text('404')),

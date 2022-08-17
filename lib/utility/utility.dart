@@ -10,27 +10,34 @@ class Utility {
 
   static final shared = Utility._();
 
-  image(String path, {BoxFit? fit}) {
+  image(String path, {required String errorImage, BoxFit? fit}) {
     bool isMatch = RegExp(r'^(https://|http://)').hasMatch(path);
 
     if (!isMatch) {
-      return assetImage(path);
+      return assetImage(path, errorImage: errorImage);
     }
 
-    return webImage(path);
+    return webImage(path, errorImage: errorImage);
   }
 
-  Image assetImage(String name, {BoxFit? fit}) {
+  Image assetImage(String name, {required String errorImage, BoxFit? fit}) {
     return Image.asset(
       name,
       fit: fit,
+      errorBuilder: (context, error, stackTrace) {
+        return Image.asset(errorImage);
+      },
     );
   }
 
-  Image webImage(String src, {BoxFit? fit}) {
+  // https://sa123.cc/t8u0ukszw4jd1n66tjtm.html
+  Image webImage(String src, {required String errorImage, BoxFit? fit}) {
     return Image.network(
       src,
       fit: fit,
+      errorBuilder: (context, error, stackTrace) {
+        return Image.asset(errorImage);
+      },
     );
   }
 

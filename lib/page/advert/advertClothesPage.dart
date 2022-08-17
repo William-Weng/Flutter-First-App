@@ -5,14 +5,14 @@ import '/utility/utility.dart';
 import '/utility/extension.dart';
 import '/utility/model/clothes.dart';
 
-class ClothesWidget extends StatefulWidget {
-  const ClothesWidget({Key? key}) : super(key: key);
+class AdvertClothesPage extends StatefulWidget {
+  const AdvertClothesPage({Key? key}) : super(key: key);
 
   @override
-  State<ClothesWidget> createState() => _ClothesWidgetState();
+  State<AdvertClothesPage> createState() => _AdvertClothesPageState();
 }
 
-class _ClothesWidgetState extends State<ClothesWidget> {
+class _AdvertClothesPageState extends State<AdvertClothesPage> {
   final ScrollController _scrollController = ScrollController();
   final String assetsPath = "./lib/assets/json/clothes.json";
 
@@ -31,8 +31,8 @@ class _ClothesWidgetState extends State<ClothesWidget> {
 
   @override
   void dispose() {
-    super.dispose();
     _scrollController.dispose();
+    super.dispose();
   }
 
   @override
@@ -72,11 +72,17 @@ class _ClothesWidgetState extends State<ClothesWidget> {
     final model = models.safeElementAt(index);
 
     if (model == null) {
-      return Utility.shared.assetImage('./lib/assets/images/404.jpeg');
+      return Utility.shared.assetImage(
+        errorImageName,
+        errorImage: errorImageName,
+      );
     }
 
     final src = model.imageUrl;
-    final image = Utility.shared.webImage(src);
+    final image = Utility.shared.webImage(
+      src,
+      errorImage: errorImageName,
+    );
 
     final item = Column(
       crossAxisAlignment: CrossAxisAlignment.start,

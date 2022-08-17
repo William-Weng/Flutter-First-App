@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_first_app/utility/setting.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../utility/model/bottomNavigationBarItemModel.dart';
@@ -42,6 +43,7 @@ class _ProfileDetailPageState extends State<ProfileDetailPage> {
                   child: Utility.shared.webImage(
                     _sample.imageUrl,
                     fit: BoxFit.fitWidth,
+                    errorImage: errorImageName,
                   ),
                 ),
                 onDoubleTap: () {

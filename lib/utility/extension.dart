@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 extension WWList<T> on List<T> {
@@ -53,5 +56,29 @@ extension WWTabController on TabController {
     }
 
     return null;
+  }
+}
+
+extension WWImageProvider on ImageProvider<Object> {
+  void jj() {
+    resolve(const ImageConfiguration()).addListener(ImageStreamListener(
+      (image, synchronousCall) {
+        log('image => $image / synchronousCall => $synchronousCall');
+      },
+    ));
+  }
+}
+
+// https://wizardforcel.gitbooks.io/gsyflutterbook/content/Flutter-10.html
+extension WWImage on Image {
+  void defaultImage() {
+    final Completer<void> completer = Completer<void>();
+
+    image.resolve(const ImageConfiguration()).addListener(ImageStreamListener(
+      (image, synchronousCall) {
+        log('image => $image / synchronousCall => $synchronousCall');
+        completer.complete();
+      },
+    ));
   }
 }

@@ -342,6 +342,7 @@ class _ProfilePageState extends State<ProfilePage> {
               child: Utility.shared.webImage(
                 sample.imageUrl,
                 fit: BoxFit.fitWidth,
+                errorImage: errorImageName,
               ),
             ),
             Column(

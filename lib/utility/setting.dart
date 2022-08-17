@@ -9,8 +9,10 @@ import 'model/bottomNavigationBarItemModel.dart';
 import 'model/sampleDefaultTabModel.dart';
 
 const int simulationSeconds = 2;
-const int offsetRange = 100;
+const int offsetRange = 30;
 const int maxDownloadCount = 20;
+
+const String errorImageName = './lib/assets/images/404.jpeg';
 
 // MARK: - TabBar的資訊
 final List<BottomNavigationBarItemModel> tabBarItems = [
