@@ -149,9 +149,10 @@ class _AdvertClothesPageState extends State<AdvertClothesPage> {
       return;
     }
 
-    WWProgressIndicator.shared.display(context);
+    log('<simulationDownloadJSON>');
 
     isDownloading = true;
+    WWProgressIndicator.shared.display(context);
 
     downloadJSON(
       assetsPath,

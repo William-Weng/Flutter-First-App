@@ -1,6 +1,8 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_first_app/page/advert/demo.dart';
+import 'package:flutter_first_app/utility/widget/advertAppBar.dart';
 
 import 'advertClothesPage.dart';
 import '/utility/setting.dart';
@@ -22,13 +24,16 @@ class _AdvertPageState extends State<AdvertPage>
   late TabController tabController;
   late List<Tab> tabList;
   late List<Widget> tabViewList;
+  late bool isAdvertClothesPage = true;
 
-  late bool isAdvertClothesPage = false;
+  // [Flutter性能优化之局部刷新 - 简书](https://www.jianshu.com/p/23a2e8a96a79)
+  GlobalKey<AdvertAppBarState> appBarKey = GlobalKey();
 
   @override
   void initState() {
     super.initState();
     initTabController();
+    changeBackgroundColor(color: Colors.yellowAccent);
   }
 
   @override
@@ -42,23 +47,11 @@ class _AdvertPageState extends State<AdvertPage>
     return DefaultTabController(
       length: tabList.length,
       child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: appBarBackgroundColor,
-          elevation: 0,
-          title: Text(
-            widget.title,
-            style: const TextStyle(
-              color: Colors.black,
-            ),
-          ),
-          centerTitle: true,
-          bottom: TabBar(
-            tabs: tabList,
-            indicatorColor: Colors.blue,
-            isScrollable: true,
-            controller: tabController,
-            onTap: (index) {},
-          ),
+        appBar: AdvertAppBar(
+          key: appBarKey,
+          title: widget.title,
+          tabList: tabList,
+          controller: tabController,
         ),
 
         /// https://www.gushiciku.cn/pl/gztx/zh-tw
@@ -69,7 +62,7 @@ class _AdvertPageState extends State<AdvertPage>
             AdvertClothesPage(
               isAdvertClothesPage: isAdvertClothesPage,
             ),
-            const Center(child: Text('404')),
+            const MyDemo(),
             const Center(child: Text('404')),
             const Center(child: Text('404')),
             const Center(child: Text('404')),
@@ -106,8 +99,6 @@ class _AdvertPageState extends State<AdvertPage>
       return;
     }
 
-    log('${animation.value}');
-
     final direction = tabController.scrollDirection();
     final scrollingOffset = animation.value;
 
@@ -131,6 +122,7 @@ class _AdvertPageState extends State<AdvertPage>
       opacity = 1.0;
     }
 
+    // [Widget 的 Key（一）](https://openhome.cc/Gossip/Flutter/Key.html)
     if (opacity < 0.5) {
       opacity = 1 - opacity;
       changeBackgroundColor(color: indexColor?.withOpacity(opacity));
@@ -145,25 +137,19 @@ class _AdvertPageState extends State<AdvertPage>
 
     changeBackgroundColor(color: indexColor);
 
-    // log('isCompleted => ${animation.isCompleted}');
-
-    // if (animation.isCompleted) {
-    //   return;
-    // }
-
     log('$scrollingOffset, ${tabController.index}, ${animation.isCompleted}');
 
     setState(() {
-      if (tabController.index == 0 && scrollingOffset == 0.0) {
+      if (tabController.index == 0 &&
+          scrollingOffset == 0.0 &&
+          animation.isCompleted) {
         isAdvertClothesPage = true;
       }
     });
   }
 
   void changeBackgroundColor({required Color? color}) {
-    setState(() {
-      appBarBackgroundColor = color;
-    });
+    appBarKey.currentState?.updateColor(color);
   }
 
   List<Tab> tabsMaker() {
