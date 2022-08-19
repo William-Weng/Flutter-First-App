@@ -144,6 +144,7 @@ class _AdvertClothesPageState extends State<AdvertClothesPage> {
   }
 
   void simulationDownloadJSON({bool isReload = false}) {
+    // [viewDidAppear()](https://developer.apple.com/documentation/uikit/uiviewcontroller/1621423-viewdidappear)
     if (!mounted) {
       return;
     }
