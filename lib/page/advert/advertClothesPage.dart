@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_first_app/utility/widget/progressIndicator.dart';
 import '/utility/setting.dart';
@@ -6,7 +8,10 @@ import '/utility/extension.dart';
 import '/utility/model/clothes.dart';
 
 class AdvertClothesPage extends StatefulWidget {
-  const AdvertClothesPage({Key? key}) : super(key: key);
+  bool isAdvertClothesPage;
+
+  AdvertClothesPage({Key? key, required this.isAdvertClothesPage})
+      : super(key: key);
 
   @override
   State<AdvertClothesPage> createState() => _AdvertClothesPageState();
@@ -24,9 +29,9 @@ class _AdvertClothesPageState extends State<AdvertClothesPage> {
     super.initState();
     _scrollController.addListener(scrollingListener);
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      simulationDownloadJSON();
-    });
+    // WidgetsBinding.instance.addPostFrameCallback((_) {
+    //   simulationDownloadJSON();
+    // });
   }
 
   @override
@@ -37,6 +42,13 @@ class _AdvertClothesPageState extends State<AdvertClothesPage> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.isAdvertClothesPage) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        widget.isAdvertClothesPage = false;
+        simulationDownloadJSON();
+      });
+    }
+
     final gridView = GridView.builder(
       key: Utility.shared.pageStorageKey(widget),
       physics: const BouncingScrollPhysics(),
@@ -132,6 +144,10 @@ class _AdvertClothesPageState extends State<AdvertClothesPage> {
   }
 
   void simulationDownloadJSON({bool isReload = false}) {
+    if (!mounted) {
+      return;
+    }
+
     WWProgressIndicator.shared.display(context);
 
     isDownloading = true;

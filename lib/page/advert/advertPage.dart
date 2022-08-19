@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 import 'advertClothesPage.dart';
@@ -20,6 +22,8 @@ class _AdvertPageState extends State<AdvertPage>
   late TabController tabController;
   late List<Tab> tabList;
   late List<Widget> tabViewList;
+
+  late bool isAdvertClothesPage = false;
 
   @override
   void initState() {
@@ -61,14 +65,16 @@ class _AdvertPageState extends State<AdvertPage>
         body: TabBarView(
           physics: const BouncingScrollPhysics(),
           controller: tabController,
-          children: const [
-            AdvertClothesPage(),
-            Center(child: Text('404')),
-            Center(child: Text('404')),
-            Center(child: Text('404')),
-            Center(child: Text('404')),
-            Center(child: Text('404')),
-            Center(child: Text('404')),
+          children: [
+            AdvertClothesPage(
+              isAdvertClothesPage: isAdvertClothesPage,
+            ),
+            const Center(child: Text('404')),
+            const Center(child: Text('404')),
+            const Center(child: Text('404')),
+            const Center(child: Text('404')),
+            const Center(child: Text('404')),
+            const Center(child: Text('404')),
           ],
         ),
       ),
@@ -92,6 +98,7 @@ class _AdvertPageState extends State<AdvertPage>
   }
 
   // [Flutter：TabController簡單協調TabBar與TabView | IT人](https://iter01.com/12080.html)
+  // [Flutter中关于setState的理解(三) - 簡書](https://www.jianshu.com/p/24018d234210)
   void tabIndexOffsetOnChangeListener() {
     final animation = tabController.animation;
 
@@ -99,7 +106,10 @@ class _AdvertPageState extends State<AdvertPage>
       return;
     }
 
+    log('${animation.value}');
+
     final direction = tabController.scrollDirection();
+    final scrollingOffset = animation.value;
 
     final indexColor = sampleTabModels
         .safeElementAt(tabController.index)
@@ -114,8 +124,8 @@ class _AdvertPageState extends State<AdvertPage>
         sampleTabModels.safeElementAt(nextIndex)?.tabModel.backgroundColor;
 
     var opacity = (direction != AnimationStatus.reverse)
-        ? (animation.value - tabController.index.toDouble())
-        : (-animation.value + tabController.index.toDouble());
+        ? (scrollingOffset - tabController.index.toDouble())
+        : (-scrollingOffset + tabController.index.toDouble());
 
     if (opacity > 1.0) {
       opacity = 1.0;
@@ -129,10 +139,25 @@ class _AdvertPageState extends State<AdvertPage>
     }
 
     if (!tabController.isScrolledIndex()) {
+      log('tabIndex => ${tabController.index}');
       return;
     }
 
     changeBackgroundColor(color: indexColor);
+
+    // log('isCompleted => ${animation.isCompleted}');
+
+    // if (animation.isCompleted) {
+    //   return;
+    // }
+
+    log('$scrollingOffset, ${tabController.index}, ${animation.isCompleted}');
+
+    setState(() {
+      if (tabController.index == 0 && scrollingOffset == 0.0) {
+        isAdvertClothesPage = true;
+      }
+    });
   }
 
   void changeBackgroundColor({required Color? color}) {

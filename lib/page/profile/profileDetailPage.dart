@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_first_app/utility/setting.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
-import '../../utility/model/bottomNavigationBarItemModel.dart';
+import '/utility/model/bottomNavigationBarItemModel.dart';
 import '/utility/utility.dart';
 
 class ProfileDetailPage extends StatefulWidget {
@@ -31,6 +31,7 @@ class _ProfileDetailPageState extends State<ProfileDetailPage> {
         appBar: AppBar(
           title: Text(widget.sample.title),
           centerTitle: true,
+          elevation: 0,
         ),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,

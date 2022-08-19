@@ -5,6 +5,7 @@ void main() {
   runApp(const MyApp());
 }
 
+// [30天Flutter手滑系列 - 狀態管理 (State Management)](https://ithelp.ithome.com.tw/articles/10217200)
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
