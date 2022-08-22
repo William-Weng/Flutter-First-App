@@ -24,16 +24,20 @@ class _AdvertPageState extends State<AdvertPage>
   late TabController tabController;
   late List<Tab> tabList;
   late List<Widget> tabViewList;
-  late bool isAdvertClothesPage = true;
 
   // [Flutter性能优化之局部刷新 - 简书](https://www.jianshu.com/p/23a2e8a96a79)
   GlobalKey<AdvertAppBarState> appBarKey = GlobalKey();
+  GlobalKey<AdvertClothesPageState> tabBarViewKey = GlobalKey();
 
   @override
   void initState() {
     super.initState();
     initTabController();
     changeBackgroundColor(color: Colors.yellowAccent);
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      tabBarViewKey.currentState?.updateJSON();
+    });
   }
 
   @override
@@ -59,9 +63,7 @@ class _AdvertPageState extends State<AdvertPage>
           physics: const BouncingScrollPhysics(),
           controller: tabController,
           children: [
-            AdvertClothesPage(
-              isAdvertClothesPage: isAdvertClothesPage,
-            ),
+            AdvertClothesPage(key: tabBarViewKey),
             const MyDemo(),
             const Center(child: Text('404')),
             const Center(child: Text('404')),
@@ -137,13 +139,11 @@ class _AdvertPageState extends State<AdvertPage>
 
     changeBackgroundColor(color: indexColor);
 
-    log('$scrollingOffset, ${tabController.index}, ${animation.isCompleted}');
+    log('Offset => $scrollingOffset, index => ${tabController.index}, isCompleted => ${animation.isCompleted}');
 
     setState(() {
-      if (tabController.index == 0 &&
-          scrollingOffset == 0.0 &&
-          animation.isCompleted) {
-        isAdvertClothesPage = true;
+      if (tabController.index == 0 && scrollingOffset == 0.0) {
+        tabBarViewKey.currentState?.updateJSON();
       }
     });
   }

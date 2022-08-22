@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import '../extension.dart';
 
 class AdvertAppBar extends StatefulWidget implements PreferredSizeWidget {
-  String title;
-  List<Widget> tabList;
-  TabController? controller;
+  final String title;
+  final List<Widget> tabList;
+  final TabController? controller;
 
-  AdvertAppBar({
+  const AdvertAppBar({
     Key? key,
     required this.title,
     required this.tabList,
@@ -16,7 +17,11 @@ class AdvertAppBar extends StatefulWidget implements PreferredSizeWidget {
   State<AdvertAppBar> createState() => AdvertAppBarState();
 
   @override
-  Size get preferredSize => Size(100, 100);
+  Size get preferredSize {
+    final appBarSize =
+        AppBar().preferredSize.add(const Size(0, kTextTabBarHeight));
+    return appBarSize;
+  }
 }
 
 class AdvertAppBarState extends State<AdvertAppBar> {

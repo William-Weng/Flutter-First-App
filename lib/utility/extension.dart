@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 extension WWList<T> on List<T> {
@@ -67,5 +68,15 @@ extension WWImageChunkEvent on ImageChunkEvent {
         .toStringAsFixed(fractionDigits);
 
     return double.parse(rate);
+  }
+}
+
+extension WWSize on Size {
+  Size add(Size size) {
+    return Size(width + size.width, height + size.height);
+  }
+
+  Size minus(Size size) {
+    return Size(width - size.width, height - size.height);
   }
 }

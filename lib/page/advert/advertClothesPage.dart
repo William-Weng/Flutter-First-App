@@ -1,23 +1,21 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_first_app/utility/widget/progressIndicator.dart';
+
+import '/utility/widget/progressIndicator.dart';
 import '/utility/setting.dart';
 import '/utility/utility.dart';
 import '/utility/extension.dart';
 import '/utility/model/clothes.dart';
 
 class AdvertClothesPage extends StatefulWidget {
-  bool isAdvertClothesPage;
-
-  AdvertClothesPage({Key? key, required this.isAdvertClothesPage})
-      : super(key: key);
+  const AdvertClothesPage({Key? key}) : super(key: key);
 
   @override
-  State<AdvertClothesPage> createState() => _AdvertClothesPageState();
+  State<AdvertClothesPage> createState() => AdvertClothesPageState();
 }
 
-class _AdvertClothesPageState extends State<AdvertClothesPage> {
+class AdvertClothesPageState extends State<AdvertClothesPage> {
   final ScrollController _scrollController = ScrollController();
   final String assetsPath = "./lib/assets/json/clothes.json";
 
@@ -28,10 +26,6 @@ class _AdvertClothesPageState extends State<AdvertClothesPage> {
   void initState() {
     super.initState();
     _scrollController.addListener(scrollingListener);
-
-    // WidgetsBinding.instance.addPostFrameCallback((_) {
-    //   simulationDownloadJSON();
-    // });
   }
 
   @override
@@ -40,15 +34,14 @@ class _AdvertClothesPageState extends State<AdvertClothesPage> {
     super.dispose();
   }
 
+  void updateJSON() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      simulationDownloadJSON();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    if (widget.isAdvertClothesPage) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        widget.isAdvertClothesPage = false;
-        simulationDownloadJSON();
-      });
-    }
-
     final gridView = GridView.builder(
       key: Utility.shared.pageStorageKey(widget),
       physics: const BouncingScrollPhysics(),
