@@ -1,12 +1,12 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_first_app/page/advert/demo.dart';
-import 'package:flutter_first_app/utility/widget/advertAppBar.dart';
+import 'package:flutter_first_app/page/technology/technologyPage.dart';
 
 import 'advertClothesPage.dart';
 import '/utility/setting.dart';
 import '/utility/extension.dart';
+import '/utility/widget/advertAppBar.dart';
 
 class AdvertPage extends StatefulWidget {
   final String title;
@@ -27,7 +27,7 @@ class _AdvertPageState extends State<AdvertPage>
 
   // [Flutter性能优化之局部刷新 - 简书](https://www.jianshu.com/p/23a2e8a96a79)
   GlobalKey<AdvertAppBarState> appBarKey = GlobalKey();
-  GlobalKey<AdvertClothesPageState> tabBarViewKey = GlobalKey();
+  GlobalKey<AdvertClothesPageState> advertClothesPageKey = GlobalKey();
 
   @override
   void initState() {
@@ -36,7 +36,7 @@ class _AdvertPageState extends State<AdvertPage>
     changeBackgroundColor(color: Colors.yellowAccent);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      tabBarViewKey.currentState?.updateJSON();
+      advertClothesPageKey.currentState?.updateJSON();
     });
   }
 
@@ -59,20 +59,18 @@ class _AdvertPageState extends State<AdvertPage>
         ),
 
         /// https://www.gushiciku.cn/pl/gztx/zh-tw
-        body: GestureDetector(
-          child: TabBarView(
-            physics: const BouncingScrollPhysics(),
-            controller: tabController,
-            children: [
-              AdvertClothesPage(key: tabBarViewKey),
-              const MyDemo(),
-              const Center(child: Text('404')),
-              const Center(child: Text('404')),
-              const Center(child: Text('404')),
-              const Center(child: Text('404')),
-              const Center(child: Text('404')),
-            ],
-          ),
+        body: TabBarView(
+          physics: const BouncingScrollPhysics(),
+          controller: tabController,
+          children: [
+            AdvertClothesPage(key: advertClothesPageKey),
+            const Center(child: Text('404')),
+            const TechnologyPage(),
+            const Center(child: Text('404')),
+            const Center(child: Text('404')),
+            const Center(child: Text('404')),
+            const Center(child: Text('404')),
+          ],
         ),
       ),
     );

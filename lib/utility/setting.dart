@@ -53,11 +53,11 @@ final List<SampleDefaultTabModel> sampleTabModels = [
   ),
   SampleDefaultTabModel(
     tabModel: TabModel(
-        title: "上衣",
+        title: "3C",
         color: Colors.black,
         backgroundColor: const Color.fromARGB(255, 204, 255, 255)),
     body: const Center(
-      child: Text('就是上衣'),
+      child: Text('就是3C'),
     ),
   ),
   SampleDefaultTabModel(
@@ -80,11 +80,11 @@ final List<SampleDefaultTabModel> sampleTabModels = [
   ),
   SampleDefaultTabModel(
     tabModel: TabModel(
-        title: "3C",
+        title: "褲子",
         color: Colors.black,
         backgroundColor: const Color.fromARGB(255, 255, 153, 255)),
     body: const Center(
-      child: Text('就是3C'),
+      child: Text('就是褲子'),
     ),
   ),
   SampleDefaultTabModel(
