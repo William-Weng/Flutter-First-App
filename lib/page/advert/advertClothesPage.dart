@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 
+import '/utility/global.dart';
 import '/utility/widget/progressIndicator.dart';
 import '/utility/setting.dart';
 import '/utility/utility.dart';
@@ -20,7 +21,6 @@ class AdvertClothesPageState extends State<AdvertClothesPage> {
   final String assetsPath = "./lib/assets/json/clothes.json";
 
   bool isDownloading = false;
-  List<ClothesModel> models = [];
 
   @override
   void initState() {
@@ -32,12 +32,6 @@ class AdvertClothesPageState extends State<AdvertClothesPage> {
   void dispose() {
     _scrollController.dispose();
     super.dispose();
-  }
-
-  void updateJSON() {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      simulationDownloadJSON();
-    });
   }
 
   @override
@@ -52,7 +46,7 @@ class AdvertClothesPageState extends State<AdvertClothesPage> {
         crossAxisSpacing: 3,
         childAspectRatio: 0.85,
       ),
-      itemCount: models.length,
+      itemCount: Global.clothesList.length,
       itemBuilder: (context, index) => _gridViewItem(context, index),
     );
 
@@ -74,7 +68,7 @@ class AdvertClothesPageState extends State<AdvertClothesPage> {
       return items.toList();
     }
 
-    final model = models.safeElementAt(index);
+    final model = Global.clothesList.safeElementAt(index);
 
     if (model == null) {
       return Utility.shared.assetImage(
@@ -107,6 +101,12 @@ class AdvertClothesPageState extends State<AdvertClothesPage> {
     return item;
   }
 
+  void updateJSON() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      simulationDownloadJSON();
+    });
+  }
+
   void scrollingListener() {
     final offset = _scrollController.offset;
 
@@ -119,7 +119,7 @@ class AdvertClothesPageState extends State<AdvertClothesPage> {
     }
 
     if (offset >= _scrollController.position.maxScrollExtent + offsetRange) {
-      if (models.length >= maxDownloadCount) {
+      if (Global.clothesList.length >= maxDownloadCount) {
         return;
       }
       simulationDownloadJSON();
@@ -142,8 +142,6 @@ class AdvertClothesPageState extends State<AdvertClothesPage> {
       return;
     }
 
-    log('<simulationDownloadJSON>');
-
     isDownloading = true;
     WWProgressIndicator.shared.display(context);
 
@@ -156,11 +154,11 @@ class AdvertClothesPageState extends State<AdvertClothesPage> {
                   isDownloading = false,
                   setState(() {
                     if (!isReload) {
-                      models.addAll(list);
+                      Global.clothesList.addAll(list);
                       return;
                     }
 
-                    models = list;
+                    Global.clothesList = list;
                   }),
                 });
       },

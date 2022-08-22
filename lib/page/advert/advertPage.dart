@@ -59,18 +59,20 @@ class _AdvertPageState extends State<AdvertPage>
         ),
 
         /// https://www.gushiciku.cn/pl/gztx/zh-tw
-        body: TabBarView(
-          physics: const BouncingScrollPhysics(),
-          controller: tabController,
-          children: [
-            AdvertClothesPage(key: tabBarViewKey),
-            const MyDemo(),
-            const Center(child: Text('404')),
-            const Center(child: Text('404')),
-            const Center(child: Text('404')),
-            const Center(child: Text('404')),
-            const Center(child: Text('404')),
-          ],
+        body: GestureDetector(
+          child: TabBarView(
+            physics: const BouncingScrollPhysics(),
+            controller: tabController,
+            children: [
+              AdvertClothesPage(key: tabBarViewKey),
+              const MyDemo(),
+              const Center(child: Text('404')),
+              const Center(child: Text('404')),
+              const Center(child: Text('404')),
+              const Center(child: Text('404')),
+              const Center(child: Text('404')),
+            ],
+          ),
         ),
       ),
     );
@@ -138,14 +140,6 @@ class _AdvertPageState extends State<AdvertPage>
     }
 
     changeBackgroundColor(color: indexColor);
-
-    log('Offset => $scrollingOffset, index => ${tabController.index}, isCompleted => ${animation.isCompleted}');
-
-    setState(() {
-      if (tabController.index == 0 && scrollingOffset == 0.0) {
-        tabBarViewKey.currentState?.updateJSON();
-      }
-    });
   }
 
   void changeBackgroundColor({required Color? color}) {
