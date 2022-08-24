@@ -44,16 +44,22 @@ class _WWProgressIndicatorState extends State<WWProgressIndicator> {
     super.dispose();
   }
 
+  // https://stackoverflow.com/questions/45916658/how-to-deactivate-or-override-the-android-back-button-in-flutter
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.black.withAlpha(64),
-      body: Center(
-        child: SizedBox(
-          width: widget.radius,
-          height: widget.radius,
-          child: const CircularProgressIndicator(
-            valueColor: AlwaysStoppedAnimation(Colors.blue),
+    return WillPopScope(
+      onWillPop: () async {
+        return false;
+      },
+      child: Scaffold(
+        backgroundColor: Colors.black.withAlpha(64),
+        body: Center(
+          child: SizedBox(
+            width: widget.radius,
+            height: widget.radius,
+            child: const CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation(Colors.blue),
+            ),
           ),
         ),
       ),

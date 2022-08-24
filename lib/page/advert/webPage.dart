@@ -2,8 +2,9 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_first_app/utility/widget/progressIndicator.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+
+import '/utility/widget/progressIndicator.dart';
 
 class WebPage extends StatefulWidget {
   const WebPage({Key? key}) : super(key: key);

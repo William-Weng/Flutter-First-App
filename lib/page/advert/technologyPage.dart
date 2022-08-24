@@ -1,9 +1,9 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_first_app/utility/global.dart';
-import 'package:flutter_first_app/utility/widget/progressIndicator.dart';
 
+import '/utility/global.dart';
+import '/utility/widget/progressIndicator.dart';
 import '/utility/model/model.dart';
 import '/utility/setting.dart';
 import '/utility/utility.dart';
