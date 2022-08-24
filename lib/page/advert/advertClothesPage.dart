@@ -145,8 +145,6 @@ class AdvertClothesPageState extends State<AdvertClothesPage> {
     isDownloading = true;
     WWProgressIndicator.shared.display(context);
 
-    log('context => $context');
-
     downloadJSON(
       assetsPath,
       action: (list) {

@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_first_app/page/advert/technologyPage.dart';
+import 'package:flutter_first_app/page/advert/webPage.dart';
 
 import 'advertClothesPage.dart';
 import '/utility/setting.dart';
@@ -68,7 +69,7 @@ class _AdvertPageState extends State<AdvertPage>
             const Center(child: Text('404')),
             TechnologyPage(key: technologyPageStatePageKey),
             const Center(child: Text('404')),
-            const Center(child: Text('404')),
+            const WebPage(),
             const Center(child: Text('404')),
             const Center(child: Text('404')),
           ],

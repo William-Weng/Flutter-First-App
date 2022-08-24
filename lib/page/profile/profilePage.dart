@@ -160,13 +160,13 @@ class _ProfilePageState extends State<ProfilePage> {
       widget.assetsPath,
       action: (list) {
         Future.delayed(const Duration(seconds: simulationSeconds))
-            .then((value) => {
-                  WWProgressIndicator.shared.dismiss(context),
-                  isDownloading = false,
-                  setState(() {
-                    _sampleList.addAll(list);
-                  }),
-                });
+            .then((value) {
+          WWProgressIndicator.shared.dismiss(context);
+          isDownloading = false;
+          setState(() {
+            _sampleList.addAll(list);
+          });
+        });
       },
     );
 

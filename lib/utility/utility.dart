@@ -78,4 +78,9 @@ class Utility {
     return Color((math.Random().nextDouble() * 0xFFFFFF).toInt())
         .withOpacity(1.0);
   }
+
+  // https://flutterigniter.com/detect-platform-ios-android/
+  TargetPlatform platform(BuildContext context) {
+    return Theme.of(context).platform;
+  }
 }
