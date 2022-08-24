@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -33,6 +35,8 @@ class _WebPageState extends State<WebPage> {
     }
   }
 
+  // https://blog.csdn.net/LJLThomson/article/details/117227723
+  // https://www.anycodings.com/1questions/1925041/disable-horizontal-scrolling-in-flutter-webview
   @override
   Widget build(BuildContext context) {
     final webView = WebView(
@@ -44,6 +48,12 @@ class _WebPageState extends State<WebPage> {
       onPageFinished: ((url) {
         WWProgressIndicator.shared.dismiss(context);
       }),
+      gestureRecognizers: Set()
+        ..add(
+          Factory<VerticalDragGestureRecognizer>(
+            () => VerticalDragGestureRecognizer(),
+          ),
+        ),
     );
 
     return webView;
