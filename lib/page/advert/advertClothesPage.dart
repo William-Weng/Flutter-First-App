@@ -7,7 +7,7 @@ import '/utility/widget/progressIndicator.dart';
 import '/utility/setting.dart';
 import '/utility/utility.dart';
 import '/utility/extension.dart';
-import '/utility/model/clothes.dart';
+import '../../utility/model/clothesModel.dart';
 
 class AdvertClothesPage extends StatefulWidget {
   const AdvertClothesPage({Key? key}) : super(key: key);
@@ -144,6 +144,8 @@ class AdvertClothesPageState extends State<AdvertClothesPage> {
 
     isDownloading = true;
     WWProgressIndicator.shared.display(context);
+
+    log('context => $context');
 
     downloadJSON(
       assetsPath,

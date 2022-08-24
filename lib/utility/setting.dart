@@ -35,7 +35,7 @@ final List<BottomNavigationBarItemModel> tabBarItems = [
 final List<SampleDefaultTabModel> sampleTabModels = [
   SampleDefaultTabModel(
     tabModel: TabModel(
-        title: "衣服",
+        title: '衣服',
         color: Colors.black,
         backgroundColor: const Color.fromARGB(255, 204, 255, 153)),
     body: const Center(
@@ -44,7 +44,7 @@ final List<SampleDefaultTabModel> sampleTabModels = [
   ),
   SampleDefaultTabModel(
     tabModel: TabModel(
-        title: "褲子",
+        title: '褲子',
         color: Colors.black,
         backgroundColor: const Color.fromARGB(255, 204, 255, 204)),
     body: const Center(
@@ -53,7 +53,7 @@ final List<SampleDefaultTabModel> sampleTabModels = [
   ),
   SampleDefaultTabModel(
     tabModel: TabModel(
-        title: "3C",
+        title: '3C',
         color: Colors.black,
         backgroundColor: const Color.fromARGB(255, 204, 255, 255)),
     body: const Center(
@@ -62,7 +62,7 @@ final List<SampleDefaultTabModel> sampleTabModels = [
   ),
   SampleDefaultTabModel(
     tabModel: TabModel(
-        title: "運動鞋",
+        title: '運動鞋',
         color: Colors.black,
         backgroundColor: const Color.fromARGB(255, 255, 255, 204)),
     body: const Center(

@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_first_app/page/technology/technologyPage.dart';
+import 'package:flutter_first_app/page/advert/technologyPage.dart';
 
 import 'advertClothesPage.dart';
 import '/utility/setting.dart';
@@ -28,6 +28,7 @@ class _AdvertPageState extends State<AdvertPage>
   // [Flutter性能优化之局部刷新 - 简书](https://www.jianshu.com/p/23a2e8a96a79)
   GlobalKey<AdvertAppBarState> appBarKey = GlobalKey();
   GlobalKey<AdvertClothesPageState> advertClothesPageKey = GlobalKey();
+  GlobalKey<TechnologyPageState> technologyPageStatePageKey = GlobalKey();
 
   @override
   void initState() {
@@ -65,7 +66,7 @@ class _AdvertPageState extends State<AdvertPage>
           children: [
             AdvertClothesPage(key: advertClothesPageKey),
             const Center(child: Text('404')),
-            const TechnologyPage(),
+            TechnologyPage(key: technologyPageStatePageKey),
             const Center(child: Text('404')),
             const Center(child: Text('404')),
             const Center(child: Text('404')),
@@ -135,6 +136,10 @@ class _AdvertPageState extends State<AdvertPage>
     if (!tabController.isScrolledIndex()) {
       log('tabIndex => ${tabController.index}');
       return;
+    }
+
+    if (tabController.index == 2) {
+      technologyPageStatePageKey.currentState?.updateJSON();
     }
 
     changeBackgroundColor(color: indexColor);

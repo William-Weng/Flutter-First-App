@@ -1,0 +1,85 @@
+{
+    "result": [
+        {
+            "key": "iPhone",
+            "value": [
+                {"imageUrl": "https://cs-b.ecimg.tw/items/DYAJDO1900EOPPA/000001_1661133447.jpg"},
+                {"imageUrl": "https://cs-d.ecimg.tw/items/DYAJDOA900BT589/000001_1658368953.jpg"},
+                {"imageUrl": "https://cs-c.ecimg.tw/items/DYAJDOA900BT57V/000001_1658369005.jpg"},
+                {"imageUrl": "https://cs-d.ecimg.tw/items/DYAJDOA900EOI07/000001_1661133273.jpg"},
+                {"imageUrl": "https://cs-c.ecimg.tw/items/DYAJDOA900EOPK0/000001_1655086583.jpg"},
+                {"imageUrl": "https://cs-b.ecimg.tw/items/DYAJDQ1900BSGUW/000001_1649902214.jpg"},
+                {"imageUrl": "https://cs-b.ecimg.tw/items/DYAJFW1900BSGR0/000001_1638873806.jpg"}
+          ]
+        },
+        {
+            "key": "Android",
+            "value": [
+                {"imageUrl": "https://cs-b.ecimg.tw/items/DYAT1DA900FCT4P/000001_1660183125.jpg"},
+                {"imageUrl": "https://cs-d.ecimg.tw/items/DYAW7CA900FBVSH/000001_1660710384.jpg"},
+                {"imageUrl": "https://cs-c.ecimg.tw/items/DYAW72A900FD2Z0/000001_1661134601.jpg"},
+                {"imageUrl": "https://cs-d.ecimg.tw/items/DYAW72A900FD2Y6/000001_1659690871.jpg"},
+                {"imageUrl": "https://cs-d.ecimg.tw/items/DYAW6MA900F25HY/000001_1658680348.jpg"},
+                {"imageUrl": "https://cs-b.ecimg.tw/items/DYAW6KA900FBW32/000001_1658816043.jpg"},
+                {"imageUrl": "https://cs-c.ecimg.tw/items/DYAW3XA900BBS3X/000001_1644977430.jpg"},
+                {"imageUrl": "https://cs-b.ecimg.tw/items/DYAW3XA900BBS42/000001_1655778502.jpg"},
+                {"imageUrl": "https://cs-c.ecimg.tw/items/DGBMHQA900AU27P/000001_1647831102.jpg"},
+                {"imageUrl": "https://cs-b.ecimg.tw/items/DYAW53A900C38OC/000001_1657507331.jpg"}
+          ]
+        },
+        {
+            "key": "iPhone",
+            "value": [
+                {"imageUrl": "https://cs-b.ecimg.tw/items/DYAJDO1900EOPPA/000001_1661133447.jpg"},
+                {"imageUrl": "https://cs-d.ecimg.tw/items/DYAJDOA900BT589/000001_1658368953.jpg"},
+                {"imageUrl": "https://cs-c.ecimg.tw/items/DYAJDOA900BT57V/000001_1658369005.jpg"},
+                {"imageUrl": "https://cs-d.ecimg.tw/items/DYAJDOA900EOI07/000001_1661133273.jpg"},
+                {"imageUrl": "https://cs-c.ecimg.tw/items/DYAJDOA900EOPK0/000001_1655086583.jpg"},
+                {"imageUrl": "https://cs-b.ecimg.tw/items/DYAJDQ1900BSGUW/000001_1649902214.jpg"},
+                {"imageUrl": "https://cs-b.ecimg.tw/items/DYAJFW1900BSGR0/000001_1638873806.jpg"}
+          ]
+        },
+        {
+            "key": "Android",
+            "value": [
+                {"imageUrl": "https://cs-b.ecimg.tw/items/DYAT1DA900FCT4P/000001_1660183125.jpg"},
+                {"imageUrl": "https://cs-d.ecimg.tw/items/DYAW7CA900FBVSH/000001_1660710384.jpg"},
+                {"imageUrl": "https://cs-c.ecimg.tw/items/DYAW72A900FD2Z0/000001_1661134601.jpg"},
+                {"imageUrl": "https://cs-d.ecimg.tw/items/DYAW72A900FD2Y6/000001_1659690871.jpg"},
+                {"imageUrl": "https://cs-d.ecimg.tw/items/DYAW6MA900F25HY/000001_1658680348.jpg"},
+                {"imageUrl": "https://cs-b.ecimg.tw/items/DYAW6KA900FBW32/000001_1658816043.jpg"},
+                {"imageUrl": "https://cs-c.ecimg.tw/items/DYAW3XA900BBS3X/000001_1644977430.jpg"},
+                {"imageUrl": "https://cs-b.ecimg.tw/items/DYAW3XA900BBS42/000001_1655778502.jpg"},
+                {"imageUrl": "https://cs-c.ecimg.tw/items/DGBMHQA900AU27P/000001_1647831102.jpg"},
+                {"imageUrl": "https://cs-b.ecimg.tw/items/DYAW53A900C38OC/000001_1657507331.jpg"}
+          ]
+        },
+        {
+            "key": "iPhone",
+            "value": [
+                {"imageUrl": "https://cs-b.ecimg.tw/items/DYAJDO1900EOPPA/000001_1661133447.jpg"},
+                {"imageUrl": "https://cs-d.ecimg.tw/items/DYAJDOA900BT589/000001_1658368953.jpg"},
+                {"imageUrl": "https://cs-c.ecimg.tw/items/DYAJDOA900BT57V/000001_1658369005.jpg"},
+                {"imageUrl": "https://cs-d.ecimg.tw/items/DYAJDOA900EOI07/000001_1661133273.jpg"},
+                {"imageUrl": "https://cs-c.ecimg.tw/items/DYAJDOA900EOPK0/000001_1655086583.jpg"},
+                {"imageUrl": "https://cs-b.ecimg.tw/items/DYAJDQ1900BSGUW/000001_1649902214.jpg"},
+                {"imageUrl": "https://cs-b.ecimg.tw/items/DYAJFW1900BSGR0/000001_1638873806.jpg"}
+          ]
+        },
+        {
+            "key": "Android",
+            "value": [
+                {"imageUrl": "https://cs-b.ecimg.tw/items/DYAT1DA900FCT4P/000001_1660183125.jpg"},
+                {"imageUrl": "https://cs-d.ecimg.tw/items/DYAW7CA900FBVSH/000001_1660710384.jpg"},
+                {"imageUrl": "https://cs-c.ecimg.tw/items/DYAW72A900FD2Z0/000001_1661134601.jpg"},
+                {"imageUrl": "https://cs-d.ecimg.tw/items/DYAW72A900FD2Y6/000001_1659690871.jpg"},
+                {"imageUrl": "https://cs-d.ecimg.tw/items/DYAW6MA900F25HY/000001_1658680348.jpg"},
+                {"imageUrl": "https://cs-b.ecimg.tw/items/DYAW6KA900FBW32/000001_1658816043.jpg"},
+                {"imageUrl": "https://cs-c.ecimg.tw/items/DYAW3XA900BBS3X/000001_1644977430.jpg"},
+                {"imageUrl": "https://cs-b.ecimg.tw/items/DYAW3XA900BBS42/000001_1655778502.jpg"},
+                {"imageUrl": "https://cs-c.ecimg.tw/items/DGBMHQA900AU27P/000001_1647831102.jpg"},
+                {"imageUrl": "https://cs-b.ecimg.tw/items/DYAW53A900C38OC/000001_1657507331.jpg"}
+          ]
+        }
+    ]
+  }
