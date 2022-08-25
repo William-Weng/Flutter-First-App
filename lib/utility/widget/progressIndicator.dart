@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 class WWProgressIndicator extends StatefulWidget {
   late double radius = 32.0;
+  late BuildContext rootContext;
 
   WWProgressIndicator({Key? key, this.radius = 32.0}) : super(key: key);
 
@@ -12,24 +13,28 @@ class WWProgressIndicator extends StatefulWidget {
   @override
   State<WWProgressIndicator> createState() => _WWProgressIndicatorState();
 
-  display(BuildContext context, {double? radius}) {
+  display({BuildContext? context, double? radius}) {
+    final currentContext = context ?? rootContext;
+
     if (radius != null) {
       this.radius = radius;
     }
 
-    Navigator.of(context).push(
+    Navigator.of(currentContext).push(
       PageRouteBuilder(
         opaque: false,
-        pageBuilder: (BuildContext context, _, __) => this,
+        pageBuilder: (BuildContext currentContext, _, __) => this,
       ),
     );
   }
 
-  void dismiss(BuildContext context) {
-    if (!Navigator.canPop(context)) {
+  void dismiss({BuildContext? context}) {
+    final currentContext = context ?? rootContext;
+
+    if (!Navigator.canPop(currentContext)) {
       return;
     }
-    Navigator.of(context).pop();
+    Navigator.of(currentContext).pop();
   }
 }
 

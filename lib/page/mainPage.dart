@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_first_app/utility/widget/progressIndicator.dart';
 
 import '/utility/setting.dart';
 
@@ -18,6 +19,8 @@ class _MainPageState extends State<MainPage> {
   @override
   void initState() {
     super.initState();
+
+    WWProgressIndicator.shared.rootContext = context;
 
     _items = tabBarItems.map((model) {
       return model.item;

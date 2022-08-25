@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_first_app/page/advert/webPage.dart';
 import '/page/mainPage.dart';
 
 void main() {
@@ -15,7 +16,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(fontFamily: 'OpenHuninn'),
-      home: const MainPage(),
+      // home: const MainPage(),
+      home: const WebPage(),
     );
   }
 }

@@ -125,7 +125,7 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   void simulationReloadJSON() {
-    WWProgressIndicator.shared.display(context);
+    WWProgressIndicator.shared.display();
     isDownloading = true;
 
     downloadJSON(
@@ -133,7 +133,7 @@ class _ProfilePageState extends State<ProfilePage> {
       action: (list) {
         Future.delayed(const Duration(seconds: simulationSeconds))
             .then((value) => {
-                  WWProgressIndicator.shared.dismiss(context),
+                  WWProgressIndicator.shared.dismiss(),
                   isDownloading = false,
                   setState(() {
                     _sampleList = list;
@@ -152,7 +152,7 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   void simulationDownloadJSON() {
-    WWProgressIndicator.shared.display(context);
+    WWProgressIndicator.shared.display();
 
     isDownloading = true;
 
@@ -161,7 +161,7 @@ class _ProfilePageState extends State<ProfilePage> {
       action: (list) {
         Future.delayed(const Duration(seconds: simulationSeconds))
             .then((value) {
-          WWProgressIndicator.shared.dismiss(context);
+          WWProgressIndicator.shared.dismiss();
           isDownloading = false;
           setState(() {
             _sampleList.addAll(list);

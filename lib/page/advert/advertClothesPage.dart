@@ -143,24 +143,24 @@ class AdvertClothesPageState extends State<AdvertClothesPage> {
     }
 
     isDownloading = true;
-    WWProgressIndicator.shared.display(context);
+    WWProgressIndicator.shared.display();
 
     downloadJSON(
       assetsPath,
       action: (list) {
         Future.delayed(const Duration(seconds: simulationSeconds))
-            .then((value) => {
-                  WWProgressIndicator.shared.dismiss(context),
-                  isDownloading = false,
-                  setState(() {
-                    if (!isReload) {
-                      Global.clothesList.addAll(list);
-                      return;
-                    }
+            .then((value) {
+          WWProgressIndicator.shared.dismiss();
+          isDownloading = false;
+          setState(() {
+            if (!isReload) {
+              Global.clothesList.addAll(list);
+              return;
+            }
 
-                    Global.clothesList = list;
-                  }),
-                });
+            Global.clothesList = list;
+          });
+        });
       },
     );
   }

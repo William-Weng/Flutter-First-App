@@ -1,9 +1,11 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_first_app/utility/global.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 import '/utility/widget/progressIndicator.dart';
@@ -37,25 +39,46 @@ class _WebPageState extends State<WebPage> {
 
   // https://blog.csdn.net/LJLThomson/article/details/117227723
   // https://www.anycodings.com/1questions/1925041/disable-horizontal-scrolling-in-flutter-webview
+  // https://wizardforcel.gitbooks.io/gsyflutterbook/content/Flutter-13.html
   @override
   Widget build(BuildContext context) {
+    final set = Set<Factory<OneSequenceGestureRecognizer>>();
+
+    WWProgressIndicator.shared.rootContext = context;
+
     final webView = WebView(
-      initialUrl: 'https://www.uniqlo.com/',
+      initialUrl: Global.initialUrl,
       javascriptMode: JavascriptMode.unrestricted,
       onWebViewCreated: (url) {
-        WWProgressIndicator.shared.display(context);
+        WWProgressIndicator.shared.display();
       },
       onPageFinished: ((url) {
-        WWProgressIndicator.shared.dismiss(context);
+        WWProgressIndicator.shared.dismiss();
       }),
-      gestureRecognizers: Set()
+      gestureRecognizers: set
         ..add(
           Factory<VerticalDragGestureRecognizer>(
             () => VerticalDragGestureRecognizer(),
           ),
         ),
+      navigationDelegate: (navigation) async {
+        log(navigation.url);
+
+        if (navigation.url.contains('app://')) {
+          return NavigationDecision.prevent;
+        }
+
+        return NavigationDecision.navigate;
+      },
     );
 
-    return webView;
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: SafeArea(
+        top: false,
+        bottom: false,
+        child: webView,
+      ),
+    );
   }
 }

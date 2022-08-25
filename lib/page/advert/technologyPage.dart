@@ -107,7 +107,7 @@ class TechnologyPageState extends State<TechnologyPage> {
   }
 
   void updateJSON() {
-    WWProgressIndicator.shared.display(context);
+    WWProgressIndicator.shared.display();
 
     Future.delayed(const Duration(milliseconds: 2000)).then((value) {
       simulationDownloadJSON();
@@ -118,7 +118,7 @@ class TechnologyPageState extends State<TechnologyPage> {
     Utility.shared.readJSON(assetsPath: assetsPath).then((value) {
       final list = value['result'] as List<dynamic>;
 
-      WWProgressIndicator.shared.dismiss(context);
+      WWProgressIndicator.shared.dismiss();
 
       setState(() {
         Global.technologyModels = Model.fromList(list);
